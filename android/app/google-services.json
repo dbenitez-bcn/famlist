@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "360230907282",
+    "project_id": "famlist-app",
+    "storage_bucket": "famlist-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360230907282:android:f2b718547724a7fd56254b",
+        "android_client_info": {
+          "package_name": "com.logicgear.famlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360230907282-8b22i5caovlkhvtl69u7j0gpvmg6002a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEQD6msVcNw56lTocmCYOLjeiPj-dmPJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360230907282-8b22i5caovlkhvtl69u7j0gpvmg6002a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360230907282-ck85r4k02krf34bbkrpullftem1j0l97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.logicgear.famlist"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
