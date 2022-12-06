@@ -10,9 +10,10 @@ class NewListPage extends StatelessWidget {
   NewListPage({Key? key}) : super(key: key);
 
   void _createList(BuildContext context) {
+    ListState state = ListState.of(context);
     ListsService
         .addList(_titleTextField.value.text)
-        .then((value) => ListState.of(context).setList(value));
+        .then((value) => state.setList(value));
     Navigator.pop(context);
   }
 
