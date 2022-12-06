@@ -1,3 +1,5 @@
+import 'package:famlist/presentation/pages/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Famlist extends StatelessWidget {
@@ -8,56 +10,45 @@ class Famlist extends StatelessWidget {
     return MaterialApp(
       title: 'Famlist',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'Tu lista de la compra'),
+      // routes: <String, WidgetBuilder>{
+      //   '/newProduct': (BuildContext context) => NewProductPage(),
+      //   '/newList': (BuildContext context) => NewListPage(),
+      // },
+      home: FutureBuilder<void>(
+        future: _initializeApp(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return _loaderIndicator();
+          } else if (snapshot.hasError ||
+              FirebaseAuth.instance.currentUser == null) {
+            print(snapshot.error);
+            return _message("Algo salió mal. Por favor, intentalo mas tarde");
+          } else {
+            return const MainPage();
+          }
+        },
+      ),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Future<void> _initializeApp() async {
+    await FirebaseAuth.instance.signInAnonymously();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _message(String message) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        child: Text(message),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _loaderIndicator() {
+    // TODO: Add splash screen to load
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 }
