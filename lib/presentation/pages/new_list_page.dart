@@ -1,3 +1,4 @@
+import 'package:famlist/presentation/state/current_list.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,9 @@ class NewListPage extends StatelessWidget {
   NewListPage({Key? key}) : super(key: key);
 
   void _createList(BuildContext context) {
-    ListsService.addList(_titleTextField.value.text);
+    ListsService
+        .addList(_titleTextField.value.text)
+        .then((value) => CurrentList.of(context).setList(value));
     Navigator.pop(context);
   }
 
@@ -38,7 +41,7 @@ class NewListPage extends StatelessWidget {
               builder: (context, value, child) {
                 return ElevatedButton(
                   onPressed:
-                  value.text.isNotEmpty ? () => _createList(context) : null,
+                      value.text.isNotEmpty ? () => _createList(context) : null,
                   child: const Text(create),
                 );
               },

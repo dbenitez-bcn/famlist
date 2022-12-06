@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ListsService {
-  static Future<void> addList(String title) async {
+  static Future<String> addList(String title) async {
     if (FirebaseAuth.instance.currentUser != null) {
       DocumentReference newList =
           await FirebaseFirestore.instance.collection("lists").add({
@@ -18,6 +20,13 @@ class ListsService {
         },
         SetOptions(merge: true),
       );
+      return newList.id;
     }
+    return "";
+  }
+
+  static Future<String> getListTitle(String listId) async {
+    var list = await FirebaseFirestore.instance.collection("lists").doc(listId).get();
+    return list.data()!["title"];
   }
 }

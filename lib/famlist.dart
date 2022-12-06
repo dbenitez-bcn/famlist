@@ -1,5 +1,6 @@
 import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
+import 'package:famlist/presentation/state/current_list.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/literals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,39 +11,42 @@ class Famlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Famlist',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      routes: <String, WidgetBuilder>{
-      //   '/newProduct': (BuildContext context) => NewProductPage(),
-        '/newList': (BuildContext context) => NewListPage(),
-      },
-      home: FutureBuilder<void>(
-        future: _initializeApp(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return _loaderIndicator();
-          } else if (snapshot.hasError ||
-              FirebaseAuth.instance.currentUser == null) {
-            print(snapshot.error);
-            return _message(appStartError);
-          } else {
-            return const MainPage();
-          }
+    return CurrentList(
+      child: MaterialApp(
+        title: 'Famlist',
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+        ),
+        routes: <String, WidgetBuilder>{
+          //   '/newProduct': (BuildContext context) => NewProductPage(),
+          '/newList': (BuildContext context) => NewListPage(),
         },
+        home: FutureBuilder<String>(
+          future: _initializeApp(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return _loaderIndicator();
+            } else if (snapshot.hasError ||
+                FirebaseAuth.instance.currentUser == null) {
+              return _message(appStartError);
+            } else {
+              CurrentList.of(context).setList(snapshot.data!);
+              return MainPage(title: snapshot.data!);
+            }
+          },
+        ),
       ),
     );
   }
 
-  Future<void> _initializeApp() async {
+  Future<String> _initializeApp() async {
     UserCredential userCredentials =
         await FirebaseAuth.instance.signInAnonymously();
     if (userCredentials.additionalUserInfo != null &&
         userCredentials.additionalUserInfo!.isNewUser) {
-      await ListsService.addList(defaultListTitle);
+      return await ListsService.addList(defaultListTitle);
     }
+    return "";
   }
 
   Widget _message(String message) {
