@@ -1,4 +1,4 @@
-import 'package:famlist/presentation/state/current_list.dart';
+import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class NewListPage extends StatelessWidget {
   void _createList(BuildContext context) {
     ListsService
         .addList(_titleTextField.value.text)
-        .then((value) => CurrentList.of(context).setList(value));
+        .then((value) => ListState.of(context).setList(value));
     Navigator.pop(context);
   }
 

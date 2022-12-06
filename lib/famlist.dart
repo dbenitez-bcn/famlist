@@ -1,6 +1,6 @@
 import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
-import 'package:famlist/presentation/state/current_list.dart';
+import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/literals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +11,7 @@ class Famlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CurrentList(
+    return ListState(
       child: MaterialApp(
         title: 'Famlist',
         theme: ThemeData(
@@ -30,7 +30,7 @@ class Famlist extends StatelessWidget {
                 FirebaseAuth.instance.currentUser == null) {
               return _message(appStartError);
             } else {
-              CurrentList.of(context).setList(snapshot.data!);
+              ListState.of(context).setList(snapshot.data!);
               return MainPage(title: snapshot.data!);
             }
           },

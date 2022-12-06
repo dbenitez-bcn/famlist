@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 
-class CurrentList extends InheritedWidget {
+class ListState extends InheritedWidget {
   final StreamController<String> _listController = StreamController<String>.broadcast();
 
-  CurrentList({Key? key, required Widget child}) : super(key: key, child: child) {
+  ListState({Key? key, required Widget child}) : super(key: key, child: child) {
     _listController.add("");
   }
 
@@ -14,10 +14,10 @@ class CurrentList extends InheritedWidget {
   Stream<String> get currentList => _listController.stream;
 
   @override
-  bool updateShouldNotify(covariant CurrentList oldWidget) => true;
+  bool updateShouldNotify(covariant ListState oldWidget) => true;
 
-  static CurrentList of(BuildContext context) {
-    final CurrentList? result = context.dependOnInheritedWidgetOfExactType<CurrentList>();
+  static ListState of(BuildContext context) {
+    final ListState? result = context.dependOnInheritedWidgetOfExactType<ListState>();
     assert(result != null, 'No CurrentList found in context');
     return result!;
   }

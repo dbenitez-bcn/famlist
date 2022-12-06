@@ -1,4 +1,4 @@
-import 'package:famlist/presentation/state/current_list.dart';
+import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
         appBar: AppBar(
           title: StreamBuilder<String>(
             initialData: title,
-            stream: CurrentList.of(context).currentList,
+            stream: ListState.of(context).currentList,
             builder: (context, snapshot) {
               return FutureBuilder(
                 future: ListsService.getListTitle(snapshot.data!),
