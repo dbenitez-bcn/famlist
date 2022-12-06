@@ -1,4 +1,5 @@
 import 'package:famlist/presentation/pages/main_page.dart';
+import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,12 @@ class Famlist extends StatelessWidget {
   }
 
   Future<void> _initializeApp() async {
-    await FirebaseAuth.instance.signInAnonymously();
+    UserCredential userCredentials =
+        await FirebaseAuth.instance.signInAnonymously();
+    if (userCredentials.additionalUserInfo != null &&
+        userCredentials.additionalUserInfo!.isNewUser) {
+      await ListsService.addList('Tu lista de la compra');
+    }
   }
 
   Widget _message(String message) {
