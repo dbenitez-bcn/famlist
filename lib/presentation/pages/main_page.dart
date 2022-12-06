@@ -1,3 +1,4 @@
+import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -9,6 +10,7 @@ class MainPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Tu lista de la compra"),
         ),
+        drawer: const FamlistDrawer(),
         body: const Text("Hello hello")
     );
   }

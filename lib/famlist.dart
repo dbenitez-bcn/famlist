@@ -1,4 +1,5 @@
 import 'package:famlist/presentation/pages/main_page.dart';
+import 'package:famlist/presentation/pages/new_list_page.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/literals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +15,10 @@ class Famlist extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      // routes: <String, WidgetBuilder>{
+      routes: <String, WidgetBuilder>{
       //   '/newProduct': (BuildContext context) => NewProductPage(),
-      //   '/newList': (BuildContext context) => NewListPage(),
-      // },
+        '/newList': (BuildContext context) => NewListPage(),
+      },
       home: FutureBuilder<void>(
         future: _initializeApp(),
         builder: (context, snapshot) {

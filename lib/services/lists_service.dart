@@ -9,9 +9,15 @@ class ListsService {
         "title": title,
         "created_at": FieldValue.serverTimestamp(),
       });
-      await FirebaseFirestore.instance.collection("shared_lists").doc(FirebaseAuth.instance.currentUser!.uid).set({
-        "lists": FieldValue.arrayUnion([newList.id])
-      });
+      await FirebaseFirestore.instance
+          .collection("shared_lists")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set(
+        {
+          "lists": FieldValue.arrayUnion([newList.id])
+        },
+        SetOptions(merge: true),
+      );
     }
   }
 }
