@@ -4,3 +4,5 @@ const String addList = "Añadir lista";
 const String name = "Nombre";
 const String listName = "Nombre de la lista";
 const String create = "Añadir";
+const String appName = "Famlist";
+const String yourLists = "Tus listas";

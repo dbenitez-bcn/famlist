@@ -1,6 +1,7 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
 import 'package:famlist/services/lists_service.dart';
+import 'package:famlist/utils/literals.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -19,7 +20,7 @@ class MainPage extends StatelessWidget {
               return FutureBuilder(
                 future: ListsService.getListTitle(snapshot.data!),
                 builder: (context, snapshot) {
-                  return Text(snapshot.data ?? "");
+                  return Text(snapshot.data ?? appName);
                 },
               );
             },

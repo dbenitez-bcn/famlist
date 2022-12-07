@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:famlist/list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ListsService {
@@ -26,7 +27,15 @@ class ListsService {
   }
 
   static Future<String> getListTitle(String listId) async {
-    var list = await FirebaseFirestore.instance.collection("lists").doc(listId).get();
+    var list =
+        await FirebaseFirestore.instance.collection("lists").doc(listId).get();
     return list.data()!["title"];
+  }
+
+  static Future<SharedList> getSharedListById(String id) async {
+    DocumentSnapshot<Map<String, dynamic>> listDocument =
+        await FirebaseFirestore.instance.collection("lists").doc(id).get();
+
+    return SharedList(listDocument.id, listDocument.data()!["title"]);
   }
 }
