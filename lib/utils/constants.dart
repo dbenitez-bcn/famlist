@@ -1,0 +1,1 @@
+const String LAST_LIST_ID_KEY = "last_list_id";

@@ -41,7 +41,10 @@ class FamlistDrawer extends StatelessWidget {
               leading: Icon(Icons.add_circle_outline),
               title: Text(addList),
             ),
-            onTap: () => Navigator.pushNamed(context, '/newList'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/newList');
+            },
           ),
         ],
       ),
@@ -73,9 +76,7 @@ class ListLists extends StatelessWidget {
                       if (snapshot.hasData) {
                         return ListTile(
                           title: Text(snapshot.data!.title),
-                          leading: const Icon(
-                              Icons.list
-                          ),
+                          leading: const Icon(Icons.list),
                           onTap: () {
                             ListState.of(context).setList(snapshot.data!.id);
                             Navigator.pop(context);

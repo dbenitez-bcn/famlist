@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:famlist/utils/constants.dart';
+import 'package:famlist/utils/literals.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,11 +10,12 @@ class ListState extends InheritedWidget {
 
   ListState({Key? key, required Widget child, required SharedPreferences sharedPreferences}) : super(key: key, child: child) {
     _sharedPreferences = sharedPreferences;
+    _listController.add(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? appName);
   }
 
   void setList(String newListId) {
     _listController.add(newListId);
-    _sharedPreferences.setString("last_list", newListId);
+    _sharedPreferences.setString(LAST_LIST_ID_KEY, newListId);
   }
   Stream<String> get currentList => _listController.stream;
 

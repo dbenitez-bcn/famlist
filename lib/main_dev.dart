@@ -5,7 +5,6 @@ import 'package:famlist/famlist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +17,5 @@ Future<void> main() async {
   );
   await FirebaseAuth.instance.useAuthEmulator(host, 9099);
   await FirebaseAuth.instance.signOut();
-  var shared = await SharedPreferences.getInstance();
-  runApp(Famlist(shared));
+  runApp(const Famlist());
 }
