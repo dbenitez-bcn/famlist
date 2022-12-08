@@ -41,10 +41,7 @@ class FamlistDrawer extends StatelessWidget {
               leading: Icon(Icons.add_circle_outline),
               title: Text(addList),
             ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/newList');
-            },
+            onTap: () => Navigator.pushNamed(context, '/newList'),
           ),
         ],
       ),

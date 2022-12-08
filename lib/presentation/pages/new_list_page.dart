@@ -14,7 +14,7 @@ class NewListPage extends StatelessWidget {
     ListsService
         .addList(_titleTextField.value.text)
         .then((value) => state.setList(value));
-    Navigator.pop(context);
+    Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
   }
 
   @override
