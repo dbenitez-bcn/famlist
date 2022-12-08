@@ -5,13 +5,16 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/literals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Famlist extends StatelessWidget {
-  const Famlist({super.key});
+  final SharedPreferences _sharedPreferences;
+  const Famlist(this._sharedPreferences, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListState(
+      sharedPreferences: _sharedPreferences,
       child: MaterialApp(
         title: 'Famlist',
         theme: ThemeData(
@@ -31,7 +34,7 @@ class Famlist extends StatelessWidget {
               return _message(appStartError);
             } else {
               ListState.of(context).setList(snapshot.data!);
-              return MainPage(title: snapshot.data!);
+              return MainPage(listId: snapshot.data!);
             }
           },
         ),
@@ -46,7 +49,7 @@ class Famlist extends StatelessWidget {
         userCredentials.additionalUserInfo!.isNewUser) {
       return await ListsService.addList(defaultListTitle);
     }
-    return "";
+    return _sharedPreferences.getString("last_list") ?? "";
   }
 
   Widget _message(String message) {
