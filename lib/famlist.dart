@@ -27,13 +27,21 @@ class Famlist extends StatelessWidget {
             child: MaterialApp(
               title: 'Famlist',
               theme: ThemeData(
-                primarySwatch: Colors.teal,
+                primaryColor: const Color(0xFFC8EE3A),
+                appBarTheme: const AppBarTheme(
+                  color: Color(0xFFC8EE3A),
+                  foregroundColor: Colors.black87,
+                ),
+                textTheme: const TextTheme(
+                  headline3: TextStyle(color: Colors.black87),
+                ),
               ),
               routes: <String, WidgetBuilder>{
                 //   '/newProduct': (BuildContext context) => NewProductPage(),
                 '/newList': (BuildContext context) => NewListPage(),
               },
-              home: MainPage(listId: snapshot.data!.getString(LAST_LIST_ID_KEY) ?? ""),
+              home: MainPage(
+                  listId: snapshot.data!.getString(LAST_LIST_ID_KEY) ?? ""),
             ),
           );
         }
@@ -47,7 +55,8 @@ class Famlist extends StatelessWidget {
         await FirebaseAuth.instance.signInAnonymously();
     if (userCredentials.additionalUserInfo != null &&
         userCredentials.additionalUserInfo!.isNewUser) {
-      await preferences.setString(LAST_LIST_ID_KEY, await ListsService.addList(defaultListTitle));
+      await preferences.setString(
+          LAST_LIST_ID_KEY, await ListsService.addList(defaultListTitle));
     }
     return preferences;
   }
