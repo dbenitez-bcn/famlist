@@ -4,9 +4,7 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
-  final String listId;
-
-  const MainPage({Key? key, required this.listId}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -16,25 +14,31 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: StreamBuilder<String>(
-            initialData: widget.listId,
-            stream: ListState.of(context).currentList,
-            builder: (context, snapshot) {
-              return FutureBuilder(
-                future: ListsService.getListTitle(snapshot.data!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                    return Text(snapshot.data!);
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              );
-            },
-          ),
+      appBar: AppBar(
+        title: StreamBuilder<String>(
+          initialData: ListState.of(context).currentListId,
+          stream: ListState.of(context).currentListStream,
+          builder: (context, snapshot) {
+            return FutureBuilder(
+              future: ListsService.getListTitle(snapshot.data!),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Text(snapshot.data!);
+                } else {
+                  return const SizedBox();
+                }
+              },
+            );
+          },
         ),
-        drawer: const FamlistDrawer(),
-        body: const Text("Hello hello"));
+      ),
+      drawer: const FamlistDrawer(),
+      body: const Text("Hello hello"),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.pushNamed(context, '/newProduct'),
+      ),
+    );
   }
 }

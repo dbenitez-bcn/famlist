@@ -5,19 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ListState extends InheritedWidget {
-  final StreamController<String> _listController = StreamController<String>.broadcast();
+  final StreamController<String> _listController = StreamController<String>();
   late final SharedPreferences _sharedPreferences;
+  String _currentList = "";
 
   ListState({Key? key, required Widget child, required SharedPreferences sharedPreferences}) : super(key: key, child: child) {
     _sharedPreferences = sharedPreferences;
-    _listController.add(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? appName);
+    setList(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? appName);
   }
 
   void setList(String newListId) {
-    _listController.add(newListId);
+    _currentList = newListId;
+    _listController.sink.add(newListId);
     _sharedPreferences.setString(LAST_LIST_ID_KEY, newListId);
   }
-  Stream<String> get currentList => _listController.stream;
+  Stream<String> get currentListStream => _listController.stream.asBroadcastStream();
+  String get currentListId => _currentList;
 
   @override
   bool updateShouldNotify(covariant ListState oldWidget) => true;

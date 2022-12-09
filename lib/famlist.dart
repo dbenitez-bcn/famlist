@@ -1,5 +1,6 @@
 import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
+import 'package:famlist/presentation/pages/new_product_page.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
@@ -28,20 +29,21 @@ class Famlist extends StatelessWidget {
               title: 'Famlist',
               theme: ThemeData(
                 primaryColor: const Color(0xFFC8EE3A),
-                appBarTheme: const AppBarTheme(
-                  color: Color(0xFFC8EE3A),
-                  foregroundColor: Colors.black87,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: const Color(0xFFC8EE3A),
+                  primary: const Color(0xFFC8EE3A),
+                  onPrimary: Colors.black87,
                 ),
+                scaffoldBackgroundColor: Colors.grey[100],
                 textTheme: const TextTheme(
                   headline3: TextStyle(color: Colors.black87),
                 ),
               ),
               routes: <String, WidgetBuilder>{
-                //   '/newProduct': (BuildContext context) => NewProductPage(),
+                '/newProduct': (BuildContext context) => NewProductPage(),
                 '/newList': (BuildContext context) => NewListPage(),
               },
-              home: MainPage(
-                  listId: snapshot.data!.getString(LAST_LIST_ID_KEY) ?? ""),
+              home: const MainPage(),
             ),
           );
         }
