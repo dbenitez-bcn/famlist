@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../domain/product.dart';
+
 class ListsService {
   static Future<String> addList(String title) async {
     if (FirebaseAuth.instance.currentUser != null) {
@@ -46,4 +48,28 @@ class ListsService {
       "created_at": FieldValue.serverTimestamp(),
     });
   }
+
+  static void increaseQuantity(String listId, Product product) async {
+      await FirebaseFirestore.instance
+          .doc("lists/$listId/products/${product.id}")
+          .update({
+        "quantity": product.quantity + 1,
+      });
+  }
+
+  static void removeProduct(String listId, String productId) {
+    FirebaseFirestore.instance
+        .collection("lists/$listId/products")
+        .doc(productId)
+        .delete();
+  }
+  static Stream<List<Product>> getProducts(String listId) {
+    return FirebaseFirestore.instance
+        .collection("lists/$listId/products")
+        .snapshots()
+        .map((event) => event.docs.map(_mapToProduct).toList());
+  }
+
+  static Product _mapToProduct(QueryDocumentSnapshot<Map<String, dynamic>> e) =>
+      Product.fromMap(e.id, e.data());
 }

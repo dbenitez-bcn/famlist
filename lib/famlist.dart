@@ -26,21 +26,22 @@ class Famlist extends StatelessWidget {
           return ListState(
             sharedPreferences: snapshot.data!,
             child: MaterialApp(
-              title: 'Famlist',
+              title: appName,
               theme: ThemeData(
                 primaryColor: const Color(0xFFC8EE3A),
                 colorScheme: ColorScheme.fromSeed(
                   seedColor: const Color(0xFFC8EE3A),
                   primary: const Color(0xFFC8EE3A),
                   onPrimary: Colors.black87,
+                  secondary: const Color(0xFFC8EE3A),
+                  onSecondary: Colors.black87,
                 ),
-                scaffoldBackgroundColor: Colors.grey[100],
                 textTheme: const TextTheme(
                   headline3: TextStyle(color: Colors.black87),
                 ),
               ),
               routes: <String, WidgetBuilder>{
-                '/newProduct': (BuildContext context) => NewProductPage(),
+                '/newProduct': (BuildContext context) => const NewProductPage(),
                 '/newList': (BuildContext context) => NewListPage(),
               },
               home: const MainPage(),

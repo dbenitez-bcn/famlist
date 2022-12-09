@@ -7,3 +7,7 @@ const String listName = "Nombre de la lista";
 const String create = "Añadir";
 const String appName = "Famlist";
 const String yourLists = "Tus listas";
+const String emptyListTitle = "Lista vacía";
+const String emptyListBody = "Añade productos pulsando el botón";
+const String connectionError = "Error de conexion. Por favor, intentalo más tarde";
+String productDeletion(String productName) => "Se ha eliminado $productName de la lista.";

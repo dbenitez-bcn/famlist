@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ListState extends InheritedWidget {
-  final StreamController<String> _listController = StreamController<String>();
+  final StreamController<String> _listController = StreamController<String>.broadcast();
   late final SharedPreferences _sharedPreferences;
   String _currentList = "";
 
@@ -19,7 +19,7 @@ class ListState extends InheritedWidget {
     _listController.sink.add(newListId);
     _sharedPreferences.setString(LAST_LIST_ID_KEY, newListId);
   }
-  Stream<String> get currentListStream => _listController.stream.asBroadcastStream();
+  Stream<String> get currentListStream => _listController.stream;
   String get currentListId => _currentList;
 
   @override

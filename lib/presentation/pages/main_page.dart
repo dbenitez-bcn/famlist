@@ -3,6 +3,8 @@ import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 
+import '../wigdet/products_list_view.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -34,7 +36,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       drawer: const FamlistDrawer(),
-      body: const Text("Hello hello"),
+      body: const ProductsListView(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => Navigator.pushNamed(context, '/newProduct'),

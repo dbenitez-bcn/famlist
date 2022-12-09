@@ -16,6 +16,6 @@ Future<void> main() async {
     persistenceEnabled: false,
   );
   await FirebaseAuth.instance.useAuthEmulator(host, 9099);
-  await FirebaseAuth.instance.signOut();
+  // await FirebaseAuth.instance.signOut();
   runApp(const Famlist());
 }
