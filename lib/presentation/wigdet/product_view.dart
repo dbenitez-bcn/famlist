@@ -1,3 +1,4 @@
+import 'package:famlist/presentation/pages/edit_product_page.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +20,20 @@ class ProductView extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: ListTile(
-          onTap: () => ListsService.increaseQuantity(
-              ListState.of(context).currentListId, _product),
-          // onLongPress: () {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => EditProductPage(_product)));
-          // },
+          // onTap: () =>,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditProductPage(_product)));
+          },
           title: Text(_product.title),
-          trailing: Text("x${_product.quantity}"),
+          trailing: GestureDetector(onTap: () =>
+              ListsService.increaseQuantity(
+                  ListState
+                      .of(context)
+                      .currentListId, _product),
+              child: Text("x${_product.quantity}")),
         ),
       ),
     );

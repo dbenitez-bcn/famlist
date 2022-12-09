@@ -11,3 +11,6 @@ const String emptyListTitle = "Lista vacía";
 const String emptyListBody = "Añade productos pulsando el botón";
 const String connectionError = "Error de conexion. Por favor, intentalo más tarde";
 String productDeletion(String productName) => "Se ha eliminado $productName de la lista.";
+const String updateProductTitle = "Editar producto";
+const String productLabel = "Producto";
+const String updateLabel = "Editar";

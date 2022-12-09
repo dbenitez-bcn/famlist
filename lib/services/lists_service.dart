@@ -50,11 +50,11 @@ class ListsService {
   }
 
   static void increaseQuantity(String listId, Product product) async {
-      await FirebaseFirestore.instance
-          .doc("lists/$listId/products/${product.id}")
-          .update({
-        "quantity": product.quantity + 1,
-      });
+    await FirebaseFirestore.instance
+        .doc("lists/$listId/products/${product.id}")
+        .update({
+      "quantity": product.quantity + 1,
+    });
   }
 
   static void removeProduct(String listId, String productId) {
@@ -63,6 +63,16 @@ class ListsService {
         .doc(productId)
         .delete();
   }
+
+  static void updateProduct(String listId, Product product) async {
+    await FirebaseFirestore.instance
+        .doc("lists/$listId/products/${product.id}")
+        .update({
+      "title": product.title,
+      "quantity": product.quantity,
+    });
+  }
+
   static Stream<List<Product>> getProducts(String listId) {
     return FirebaseFirestore.instance
         .collection("lists/$listId/products")
