@@ -26,14 +26,15 @@ class Famlist extends StatelessWidget {
           return ListState(
             sharedPreferences: snapshot.data!,
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: appName,
               theme: ThemeData(
-                primaryColor: const Color(0xFFC8EE3A),
+                primaryColor: const Color(0xFFB8E123),
                 colorScheme: ColorScheme.fromSeed(
-                  seedColor: const Color(0xFFC8EE3A),
-                  primary: const Color(0xFFC8EE3A),
+                  seedColor: const Color(0xFFB8E123),
+                  primary: const Color(0xFFB8E123),
                   onPrimary: Colors.black87,
-                  secondary: const Color(0xFFC8EE3A),
+                  secondary: const Color(0xFFB8E123),
                   onSecondary: Colors.black87,
                 ),
                 textTheme: const TextTheme(
