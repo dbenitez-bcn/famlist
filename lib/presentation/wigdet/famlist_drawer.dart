@@ -4,8 +4,7 @@ import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../utils/literals.dart';
+import 'package:localization/localization.dart';
 
 class FamlistDrawer extends StatelessWidget {
   const FamlistDrawer({Key? key}) : super(key: key);
@@ -24,8 +23,8 @@ class FamlistDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(appName, style: Theme.of(context).textTheme.headline3),
-                Text(yourLists,
+                Text("app_name".i18n(), style: Theme.of(context).textTheme.headline3),
+                Text("your_lists".i18n(),
                     style: Theme.of(context).textTheme.headlineSmall),
               ],
             ),
@@ -37,9 +36,9 @@ class FamlistDrawer extends StatelessWidget {
           ),
           InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            child: const ListTile(
-              leading: Icon(Icons.add_circle_outline),
-              title: Text(addList),
+            child: ListTile(
+              leading: const Icon(Icons.add_circle_outline),
+              title: Text("add_list".i18n()),
             ),
             onTap: () => Navigator.pushNamed(context, '/newList'),
           ),

@@ -1,0 +1,19 @@
+{
+  "default_list_title": "Tu lista de la compra",
+  "app_start_error": "Algo salió mal. Por favor, intentalo mas tarde",
+  "add_list": "Añadir lista",
+  "add_product": "Añadir producto",
+  "name": "Nombre",
+  "list_name": "Nombre de la lista",
+  "product_name": "Nombre del producto",
+  "create": "Añadir",
+  "app_name": "Famlist",
+  "your_lists": "Tus listas",
+  "empty_list_title": "Lista vacía",
+  "empty_list_body": "Añade productos pulsando el botón",
+  "connection_error": "Error de conexion. Por favor, intentalo más tarde",
+  "product_deletion": "Se ha eliminado %s de la lista.",
+  "update_product_title": "Editar producto",
+  "product_label": "Producto",
+  "update_label": "Editar"
+}

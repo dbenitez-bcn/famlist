@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/literals.dart';
+import 'package:localization/localization.dart';
 
 class EmptyList extends StatelessWidget {
   const EmptyList({Key? key}) : super(key: key);
@@ -12,11 +11,11 @@ class EmptyList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            emptyListTitle,
+            "empty_list_title".i18n(),
             style: TextStyle(color: Colors.grey[700], fontSize: 32.0),
           ),
           Text(
-            emptyListBody,
+            "empty_list_body".i18n(),
             style: TextStyle(
               color: Colors.grey[400],
               fontSize: 24.0,

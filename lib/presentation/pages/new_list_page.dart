@@ -1,8 +1,7 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
-
-import '../../utils/literals.dart';
+import 'package:localization/localization.dart';
 
 class NewListPage extends StatelessWidget {
   final TextEditingController _titleTextField = TextEditingController();
@@ -20,7 +19,7 @@ class NewListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(addList)),
+      appBar: AppBar(title: Text("add_list".i18n())),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -30,10 +29,10 @@ class NewListPage extends StatelessWidget {
               child: TextField(
                 controller: _titleTextField,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: listName,
-                  labelText: name,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "list_name".i18n(),
+                  labelText: "name".i18n(),
                 ),
               ),
             ),
@@ -43,7 +42,7 @@ class NewListPage extends StatelessWidget {
                 return ElevatedButton(
                   onPressed:
                       value.text.isNotEmpty ? () => _createList(context) : null,
-                  child: const Text(create),
+                  child: Text("create".i18n()),
                 );
               },
             ),

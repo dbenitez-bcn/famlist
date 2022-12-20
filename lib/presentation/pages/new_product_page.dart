@@ -1,8 +1,7 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
-
-import '../../utils/literals.dart';
+import 'package:localization/localization.dart';
 
 class NewProductPage extends StatefulWidget {
   const NewProductPage({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class _NewProductPageState extends State<NewProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(addProduct)),
+      appBar: AppBar(title: Text("add_product".i18n())),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -27,10 +26,10 @@ class _NewProductPageState extends State<NewProductPage> {
               child: TextField(
                 controller: _titleTextField,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: productName,
-                  labelText: name,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "product_name".i18n(),
+                  labelText: "name".i18n(),
                 ),
               ),
             ),
@@ -48,7 +47,7 @@ class _NewProductPageState extends State<NewProductPage> {
                           Navigator.pop(context);
                         }
                       : null,
-                  child: const Text(create),
+                  child: Text("create".i18n()),
                 );
               },
             )

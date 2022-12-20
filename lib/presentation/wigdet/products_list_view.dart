@@ -2,9 +2,9 @@ import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/product_view.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../domain/product.dart';
-import '../../utils/literals.dart';
 import 'empty_list.dart';
 
 class ProductsListView extends StatelessWidget {
@@ -25,7 +25,7 @@ class ProductsListView extends StatelessWidget {
                 }
                 return const EmptyList();
               } else if (snapshot.hasError) {
-                return const Text(connectionError);
+                return Text("connection_error".i18n());
               } else {
                 return const Center(child: CircularProgressIndicator.adaptive());
               }
@@ -44,7 +44,7 @@ class ProductsListView extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content:
-              Text(productDeletion(products[index].title)),
+              Text("product_deletion".i18n([products[index].title]))
             ),
           );
         },

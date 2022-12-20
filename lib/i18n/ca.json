@@ -1,0 +1,19 @@
+{
+  "default_list_title": "Llista de la compra",
+  "app_start_error": "Algo no ha sortit be. Si us plau, prova-ho mes tard",
+  "add_list": "Afegir lista",
+  "add_product": "Afegir producto",
+  "name": "Nom",
+  "list_name": "Nom de la llista",
+  "product_name": "Nom del producte",
+  "create": "Afegir",
+  "app_name": "Famlist",
+  "your_lists": "Les teves llistes",
+  "empty_list_title": "Llista buida",
+  "empty_list_body": "Afegeix productes tocant el botó",
+  "connection_error": "Error de connexió. Si us plau, prova-ho mes tard",
+  "product_deletion": "S'ha eliminat %s de la llista.",
+  "update_product_title": "Editar producte",
+  "product_label": "Producte",
+  "update_label": "Editar"
+}

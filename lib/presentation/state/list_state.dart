@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:famlist/utils/constants.dart';
-import 'package:famlist/utils/literals.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:localization/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState extends InheritedWidget {
@@ -19,7 +19,7 @@ class AppState extends InheritedWidget {
       required SharedPreferences sharedPreferences})
       : super(key: key, child: child) {
     _sharedPreferences = sharedPreferences;
-    setList(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? appName);
+    setList(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? "app_name".i18n());
   }
 
   void setList(String newListId) {

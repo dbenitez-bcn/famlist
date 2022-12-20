@@ -1,0 +1,19 @@
+{
+  "default_list_title": "Your shopping list",
+  "app_start_error": "Something went wrong. Please, try it later",
+  "add_list": "Add list",
+  "add_product": "Add product",
+  "name": "Name",
+  "list_name": "Name of the list",
+  "product_name": "Name of the product",
+  "create": "Add",
+  "app_name": "Famlist",
+  "your_lists": "Your lists",
+  "empty_list_title": "Emtpy list",
+  "empty_list_body": "Add products tapping the button",
+  "connection_error": "Connexion error. Please, try it later",
+  "product_deletion": "%s has been removed from the list.",
+  "update_product_title": "Edit product",
+  "product_label": "Product",
+  "update_label": "Edit"
+}

@@ -4,9 +4,10 @@ import 'package:famlist/presentation/pages/new_product_page.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
-import 'package:famlist/utils/literals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:localization/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Famlist extends StatelessWidget {
@@ -14,6 +15,7 @@ class Famlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
     return FutureBuilder<SharedPreferences>(
       future: _initializeApp(),
       builder: (context, snapshot) {
@@ -21,13 +23,31 @@ class Famlist extends StatelessWidget {
           return _loaderIndicator();
         } else if (snapshot.hasError ||
             FirebaseAuth.instance.currentUser == null) {
-          return _message(appStartError);
+          return _message("app_start_error".i18n());
         } else {
           return AppState(
             sharedPreferences: snapshot.data!,
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: appName,
+              title: "app_name".i18n(),
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                LocalJsonLocalization.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', ''),
+                Locale('es', ''),
+                Locale('ca', ''),
+                Locale('pt', ''),
+              ],
+              localeResolutionCallback: (locale, supportedLocales) {
+                if (supportedLocales.contains(locale)) {
+                  return locale;
+                }
+                return const Locale('en', '');
+              },
               theme: ThemeData(
                 primaryColor: const Color(0xFFB8E123),
                 colorScheme: ColorScheme.fromSeed(
@@ -60,7 +80,7 @@ class Famlist extends StatelessWidget {
     if (userCredentials.additionalUserInfo != null &&
         userCredentials.additionalUserInfo!.isNewUser) {
       await preferences.setString(
-          LAST_LIST_ID_KEY, await ListsService.addList(defaultListTitle));
+          LAST_LIST_ID_KEY, await ListsService.addList("default_list_title".i18n()));
     }
     return preferences;
   }

@@ -1,9 +1,9 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../domain/product.dart';
-import '../../utils/literals.dart';
 
 class EditProductPage extends StatelessWidget {
   final Product product;
@@ -25,7 +25,7 @@ class EditProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     _titleTextField.text = product.title;
     return Scaffold(
-      appBar: AppBar(title: const Text(updateProductTitle)),
+      appBar: AppBar(title: Text("update_product_title".i18n())),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -35,9 +35,9 @@ class EditProductPage extends StatelessWidget {
               child: TextField(
                 controller: _titleTextField,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: productLabel,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "product_label".i18n(),
                 ),
               ),
             ),
@@ -86,7 +86,7 @@ class EditProductPage extends StatelessWidget {
                   onPressed: value.text.isNotEmpty
                       ? () => _updateProduct(context)
                       : null,
-                  child: const Text(updateLabel),
+                  child: Text("update_label".i18n()),
                 );
               },
             ),
