@@ -2,6 +2,7 @@ import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
 import 'package:famlist/presentation/pages/new_product_page.dart';
 import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/presentation/wigdet/custom_banner_ad.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +30,7 @@ class Famlist extends StatelessWidget {
             sharedPreferences: snapshot.data!,
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: "app_name".i18n(),
+              title: "Famlist",
               localizationsDelegates: [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
@@ -67,7 +68,14 @@ class Famlist extends StatelessWidget {
                 '/newProduct': (BuildContext context) => const NewProductPage(),
                 '/newList': (BuildContext context) => NewListPage(),
               },
-              home: const MainPage(),
+              home: Column(
+                children: const [
+                  Expanded(
+                    child: MainPage(),
+                  ),
+                  CustomBannerAd(),
+                ],
+              ),
             ),
           );
         }
@@ -81,8 +89,8 @@ class Famlist extends StatelessWidget {
         await FirebaseAuth.instance.signInAnonymously();
     if (userCredentials.additionalUserInfo != null &&
         userCredentials.additionalUserInfo!.isNewUser) {
-      await preferences.setString(
-          LAST_LIST_ID_KEY, await ListsService.addList("default_list_title".i18n()));
+      await preferences.setString(LAST_LIST_ID_KEY,
+          await ListsService.addList("default_list_title".i18n()));
     }
     return preferences;
   }
@@ -109,9 +117,6 @@ class Famlist extends StatelessWidget {
   Widget _baseApp({required Widget home}) {
     return MaterialApp(
       title: 'Famlist',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
       home: home,
     );
   }
