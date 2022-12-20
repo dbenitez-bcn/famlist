@@ -41,10 +41,12 @@ class Famlist extends StatelessWidget {
                 Locale('es', ''),
                 Locale('ca', ''),
                 Locale('pt', ''),
+                Locale('fr', ''),
               ],
               localeResolutionCallback: (locale, supportedLocales) {
-                if (supportedLocales.contains(locale)) {
-                  return locale;
+                Locale userLocale = Locale(locale?.languageCode ?? "en", "");
+                if (supportedLocales.contains(userLocale)) {
+                  return userLocale;
                 }
                 return const Locale('en', '');
               },
