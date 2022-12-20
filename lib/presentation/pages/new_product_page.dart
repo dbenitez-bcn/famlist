@@ -44,6 +44,7 @@ class _NewProductPageState extends State<NewProductPage> {
                       ? () {
                           ListsService.addProduct(
                               currentListId, _titleTextField.value.text);
+                          AppState.of(context).increaseProductAdded();
                           Navigator.pop(context);
                         }
                       : null,
