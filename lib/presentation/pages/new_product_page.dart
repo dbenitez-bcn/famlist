@@ -38,7 +38,7 @@ class _NewProductPageState extends State<NewProductPage> {
               valueListenable: _titleTextField,
               builder: (context, value, child) {
                 final String currentListId =
-                    ListState.of(context).currentListId;
+                    AppState.of(context).currentListId;
                 return ElevatedButton(
                   onPressed: value.text.isNotEmpty && currentListId.isNotEmpty
                       ? () {

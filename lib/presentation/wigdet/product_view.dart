@@ -30,7 +30,7 @@ class ProductView extends StatelessWidget {
           title: Text(_product.title),
           trailing: GestureDetector(onTap: () =>
               ListsService.increaseQuantity(
-                  ListState
+                  AppState
                       .of(context)
                       .currentListId, _product),
               child: Text("x${_product.quantity}")),

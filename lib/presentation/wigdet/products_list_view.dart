@@ -13,8 +13,8 @@ class ProductsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      initialData: ListState.of(context).currentListId,
-      stream: ListState.of(context).currentListStream,
+      initialData: AppState.of(context).currentListId,
+      stream: AppState.of(context).currentListStream,
       builder: (context, snapshot) {
         return StreamBuilder(
             stream: ListsService.getProducts(snapshot.data!),
@@ -40,7 +40,7 @@ class ProductsListView extends StatelessWidget {
         key: Key(products[index].id),
         direction: DismissDirection.endToStart,
         onDismissed: (_) {
-          ListsService.removeProduct(ListState.of(context).currentListId, products[index].id);
+          ListsService.removeProduct(AppState.of(context).currentListId, products[index].id);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content:

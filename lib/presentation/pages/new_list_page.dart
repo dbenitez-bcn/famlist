@@ -10,7 +10,7 @@ class NewListPage extends StatelessWidget {
   NewListPage({Key? key}) : super(key: key);
 
   void _createList(BuildContext context) {
-    ListState state = ListState.of(context);
+    AppState state = AppState.of(context);
     ListsService
         .addList(_titleTextField.value.text)
         .then((value) => state.setList(value));

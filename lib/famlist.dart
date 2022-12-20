@@ -23,7 +23,7 @@ class Famlist extends StatelessWidget {
             FirebaseAuth.instance.currentUser == null) {
           return _message(appStartError);
         } else {
-          return ListState(
+          return AppState(
             sharedPreferences: snapshot.data!,
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

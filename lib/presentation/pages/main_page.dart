@@ -18,8 +18,8 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         title: StreamBuilder<String>(
-          initialData: ListState.of(context).currentListId,
-          stream: ListState.of(context).currentListStream,
+          initialData: AppState.of(context).currentListId,
+          stream: AppState.of(context).currentListStream,
           builder: (context, snapshot) {
             return FutureBuilder(
               future: ListsService.getListTitle(snapshot.data!),

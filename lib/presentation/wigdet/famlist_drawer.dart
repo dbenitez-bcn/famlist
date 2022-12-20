@@ -75,7 +75,7 @@ class ListLists extends StatelessWidget {
                           title: Text(snapshot.data!.title),
                           leading: const Icon(Icons.list),
                           onTap: () {
-                            ListState.of(context).setList(snapshot.data!.id);
+                            AppState.of(context).setList(snapshot.data!.id);
                             Navigator.pop(context);
                           },
                         );
