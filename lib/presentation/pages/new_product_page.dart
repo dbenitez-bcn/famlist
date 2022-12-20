@@ -29,7 +29,7 @@ class _NewProductPageState extends State<NewProductPage> {
                 textCapitalization: TextCapitalization.sentences,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: listName,
+                  hintText: productName,
                   labelText: name,
                 ),
               ),
