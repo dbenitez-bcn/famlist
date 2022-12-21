@@ -20,8 +20,8 @@ class _CustomBannerAdState extends State<CustomBannerAd> {
     bannerAd = BannerAd(
       size: AdSize.banner,
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/6300978111'
-          : 'ca-app-pub-3940256099942544/2934735716',
+          ? 'ca-app-pub-9458621217720467/9593102800'
+          : 'ca-app-pub-9458621217720467/8583273460',
       listener: BannerAdListener(onAdFailedToLoad: (ad, error) {
         ad.dispose();
       }, onAdLoaded: (ad) {
