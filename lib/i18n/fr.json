@@ -15,5 +15,7 @@
   "product_deletion": "%s a été retirée de la liste.",
   "update_product_title": "Modifier le producte",
   "product_label": "Producte",
-  "update_label": "Éditer"
+  "update_label": "Éditer",
+  "app_share_deep_link_description": "Famlist! La façon la plus simple de faire du shopping.",
+  "share_list_link_description": "Rejoignez ma liste des achats!"
 }

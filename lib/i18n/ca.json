@@ -15,5 +15,7 @@
   "product_deletion": "S'ha eliminat %s de la llista.",
   "update_product_title": "Editar producte",
   "product_label": "Producte",
-  "update_label": "Editar"
+  "update_label": "Editar",
+  "app_share_deep_link_description": "Famlist! La manera mas fàcil de fer la compra.",
+  "share_list_link_description": "Uneix-te a la meva llista de la compra!"
 }
