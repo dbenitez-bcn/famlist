@@ -4,6 +4,7 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../wigdet/products_list_view.dart';
 
@@ -38,8 +39,9 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              _generateShareLink(context);
+            onPressed: () async {
+              final link = await _generateShareLink(context);
+              await Share.share("${"share_list_link_description".i18n()} $link");
             },
             icon: const Icon(Icons.share),
           ),

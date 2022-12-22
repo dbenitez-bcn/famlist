@@ -47,6 +47,7 @@ dependencies:
   google_mobile_ads: ^2.3.0
   firebase_analytics: ^10.0.7
   firebase_dynamic_links: ^5.0.9
+  share_plus: ^6.3.0
 
 dev_dependencies:
   flutter_test:
