@@ -36,10 +36,10 @@ class _NewProductPageState extends State<NewProductPage> {
             ValueListenableBuilder<TextEditingValue>(
               valueListenable: _titleTextField,
               builder: (context, value, child) {
-                final String currentListId =
+                final String? currentListId =
                     AppState.of(context).currentListId;
                 return ElevatedButton(
-                  onPressed: value.text.isNotEmpty && currentListId.isNotEmpty
+                  onPressed: value.text.isNotEmpty && currentListId != null
                       ? () {
                           ListsService.addProduct(
                               currentListId, _titleTextField.value.text);

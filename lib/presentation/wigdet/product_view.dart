@@ -32,7 +32,7 @@ class ProductView extends StatelessWidget {
               ListsService.increaseQuantity(
                   AppState
                       .of(context)
-                      .currentListId, _product),
+                      .currentListId!, _product),
               child: Text("x${_product.quantity}")),
         ),
       ),

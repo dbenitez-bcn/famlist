@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/famlist.dart';
+import 'package:famlist/utils/constants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +25,8 @@ Future<void> main() async {
   );
   await FirebaseAuth.instance.useAuthEmulator(host, 9099);
   await FirebaseAuth.instance.signOut();
+  var shared = await SharedPreferences.getInstance();
+  shared.remove(LAST_LIST_ID_KEY);
   FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
-  runApp(const Famlist());
+  runApp(const FamlistApp());
 }

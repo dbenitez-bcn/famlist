@@ -40,7 +40,7 @@ class ProductsListView extends StatelessWidget {
         key: Key(products[index].id),
         direction: DismissDirection.endToStart,
         onDismissed: (_) {
-          ListsService.removeProduct(AppState.of(context).currentListId, products[index].id);
+          ListsService.removeProduct(AppState.of(context).currentListId!, products[index].id);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content:

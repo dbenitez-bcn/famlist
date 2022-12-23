@@ -1,26 +1,21 @@
 import 'dart:async';
+
 import 'package:famlist/utils/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:localization/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState extends InheritedWidget {
   final StreamController<String> _listController =
       StreamController<String>.broadcast();
   late final SharedPreferences _sharedPreferences;
-  String _currentList =
-      ""; // TODO: Change it to a shared_list type (ideal for list editing name)
+  String? _currentList; // TODO: Change it to a shared_list type (ideal for list editing name)
   int _productsAdded = 0;
 
-  AppState(
-      {Key? key,
-      required Widget child,
-      required SharedPreferences sharedPreferences})
-      : super(key: key, child: child) {
-    _sharedPreferences = sharedPreferences;
-    setList(_sharedPreferences.getString(LAST_LIST_ID_KEY) ?? "app_name".i18n());
-  }
+  AppState({
+    Key? key,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   void setList(String newListId) {
     _currentList = newListId;
@@ -30,7 +25,7 @@ class AppState extends InheritedWidget {
 
   Stream<String> get currentListStream => _listController.stream;
 
-  String get currentListId => _currentList;
+  String? get currentListId => _currentList;
 
   void increaseProductAdded() async {
     _productsAdded++;
@@ -39,6 +34,14 @@ class AppState extends InheritedWidget {
       if (await inAppReview.isAvailable()) {
         inAppReview.requestReview();
       }
+    }
+  }
+  void setSharedPreferences(SharedPreferences preferences) {
+    _sharedPreferences = preferences;
+    String? listId = _sharedPreferences.getString(LAST_LIST_ID_KEY);
+    if (listId != null) {
+      _currentList = listId;
+      _listController.sink.add(listId);
     }
   }
 
