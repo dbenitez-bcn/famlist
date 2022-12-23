@@ -14,18 +14,22 @@ class ListsService {
         "title": title,
         "created_at": FieldValue.serverTimestamp(),
       });
-      await FirebaseFirestore.instance
-          .collection("shared_lists")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set(
-        {
-          "lists": FieldValue.arrayUnion([newList.id])
-        },
-        SetOptions(merge: true),
-      );
+      await addSharedList(newList.id);
       return newList.id;
     }
     return "";
+  }
+
+  static Future<void> addSharedList(String listId) async {
+    await FirebaseFirestore.instance
+        .collection("shared_lists")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set(
+      {
+        "lists": FieldValue.arrayUnion([listId])
+      },
+      SetOptions(merge: true),
+    );
   }
 
   static Future<String> getListTitle(String listId) async {

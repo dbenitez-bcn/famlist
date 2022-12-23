@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/famlist.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,5 +23,6 @@ Future<void> main() async {
   );
   await FirebaseAuth.instance.useAuthEmulator(host, 9099);
   await FirebaseAuth.instance.signOut();
+  FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
   runApp(const Famlist());
 }

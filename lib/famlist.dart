@@ -6,6 +6,7 @@ import 'package:famlist/presentation/wigdet/custom_banner_ad.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
@@ -92,6 +93,14 @@ class Famlist extends StatelessWidget {
       await preferences.setString(LAST_LIST_ID_KEY,
           await ListsService.addList("default_list_title".i18n()));
     }
+    final PendingDynamicLinkData? initialLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    if (initialLink != null) {
+      ListsService.addSharedList(initialLink.link.pathSegments[0]);
+    }
+    FirebaseDynamicLinks.instance.onLink.listen((linkData) {
+      ListsService.addSharedList(linkData.link.pathSegments[0]);
+    });
     return preferences;
   }
 
