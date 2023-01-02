@@ -17,5 +17,7 @@
   "product_label": "Prodotto",
   "update_label": "Modifica",
   "app_share_deep_link_description": "Famlist! Il modo più semplice per fare acquisti",
-  "share_list_link_description": "Unisciti alla mia lista della spesa!"
+  "share_list_link_description": "Unisciti alla mia lista della spesa!",
+  "product_description_hint_text": "(Facoltativo) Descrizione del prodotto",
+  "product_description_label": "Descrizione"
 }

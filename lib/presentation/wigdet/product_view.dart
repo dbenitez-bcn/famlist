@@ -20,7 +20,6 @@ class ProductView extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: ListTile(
-          // onTap: () =>,
           onTap: () {
             Navigator.push(
                 context,
@@ -28,6 +27,7 @@ class ProductView extends StatelessWidget {
                     builder: (context) => EditProductPage(_product)));
           },
           title: Text(_product.title),
+          subtitle: _product.description == null ? null : Text(_product.description!),
           trailing: GestureDetector(onTap: () =>
               ListsService.increaseQuantity(
                   AppState

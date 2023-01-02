@@ -17,5 +17,7 @@
   "product_label": "Product",
   "update_label": "Edit",
   "app_share_deep_link_description": "Famlist! The easiest way to go shopping.",
-  "share_list_link_description": "Join my shopping list!"
+  "share_list_link_description": "Join my shopping list!",
+  "product_description_hint_text": "(Optional) Product description",
+  "product_description_label": "Description"
 }

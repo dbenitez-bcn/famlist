@@ -12,6 +12,7 @@ class NewProductPage extends StatefulWidget {
 
 class _NewProductPageState extends State<NewProductPage> {
   final TextEditingController _titleTextField = TextEditingController();
+  final TextEditingController _descriptionTextField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,21 @@ class _NewProductPageState extends State<NewProductPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: TextField(
+                controller: _descriptionTextField,
+                keyboardType: TextInputType.multiline,
+                textCapitalization: TextCapitalization.sentences,
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "product_description_hint_text".i18n(),
+                  labelText: "product_description_label".i18n(),
+                ),
+              ),
+            ),
             ValueListenableBuilder<TextEditingValue>(
               valueListenable: _titleTextField,
               builder: (context, value, child) {
@@ -42,7 +58,9 @@ class _NewProductPageState extends State<NewProductPage> {
                   onPressed: value.text.isNotEmpty && currentListId != null
                       ? () {
                           ListsService.addProduct(
-                              currentListId, _titleTextField.value.text);
+                              currentListId,
+                              _titleTextField.value.text,
+                              _descriptionTextField.value.text);
                           AppState.of(context).increaseProductAdded();
                           Navigator.pop(context);
                         }

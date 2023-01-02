@@ -35,36 +35,39 @@ class ProductsListView extends StatelessWidget {
   }
 
   Widget _buildList(List<Product> products) {
-    return ListView.builder(
-      itemBuilder: (context, index) => Dismissible(
-        key: Key(products[index].id),
-        direction: DismissDirection.endToStart,
-        onDismissed: (_) {
-          ListsService.removeProduct(AppState.of(context).currentListId!, products[index].id);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content:
-              Text("product_deletion".i18n([products[index].title]))
-            ),
-          );
-        },
-        background: Container(
-          color: Colors.red[700],
-          child: const Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Icon(
-                Icons.delete,
-                color: Colors.white,
-                size: 24.0,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListView.builder(
+        itemBuilder: (context, index) => Dismissible(
+          key: Key(products[index].id),
+          direction: DismissDirection.endToStart,
+          onDismissed: (_) {
+            ListsService.removeProduct(AppState.of(context).currentListId!, products[index].id);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                Text("product_deletion".i18n([products[index].title]))
+              ),
+            );
+          },
+          background: Container(
+            color: Colors.red[700],
+            child: const Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 24.0,
+                ),
               ),
             ),
           ),
+          child: ProductView(products[index]),
         ),
-        child: ProductView(products[index]),
+        itemCount: products.length,
       ),
-      itemCount: products.length,
     );
   }
 }

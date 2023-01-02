@@ -45,11 +45,13 @@ class ListsService {
     return SharedList(listDocument.id, listDocument.data()!["title"]);
   }
 
-  static addProduct(String listId, String title) {
+  static addProduct(String listId, String title, String? description) {
     FirebaseFirestore.instance.collection("lists/$listId/products").add({
       "title": title,
       "quantity": 1,
+      "description": description,
       "created_at": FieldValue.serverTimestamp(),
+
     });
   }
 
