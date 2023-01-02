@@ -1,6 +1,7 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
 import 'package:famlist/services/lists_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -42,6 +43,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: () async {
               final link = await _generateShareLink(context);
               await Share.share("${"share_list_link_description".i18n()} $link");
+              FirebaseAnalytics.instance.logEvent(name: "list_shared");
             },
             icon: const Icon(Icons.share),
           ),
