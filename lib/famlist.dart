@@ -22,6 +22,7 @@ class FamlistApp extends StatelessWidget {
 
     return AppState(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: APP_NAME,
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -35,6 +36,7 @@ class FamlistApp extends StatelessWidget {
           Locale('ca', ''),
           Locale('pt', ''),
           Locale('fr', ''),
+          Locale('it', ''),
         ],
         localeResolutionCallback: _localeResolution,
         theme: famlistTheme,

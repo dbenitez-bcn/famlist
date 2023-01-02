@@ -1,0 +1,21 @@
+{
+  "default_list_title": "Lista della spesa",
+  "app_start_error": "Qualcosa è andato storto. Per favore, prova più tardi",
+  "add_list": "Nuovo elenco",
+  "add_product": "Nuovo prodotto",
+  "name": "Nome",
+  "list_name": "Nome della lista",
+  "product_name": "Nome del prodotto",
+  "create": "Aggiungere",
+  "app_name": "Famlist",
+  "your_lists": "Le tue liste",
+  "empty_list_title": "Elenco vuoto",
+  "empty_list_body": "Aggiungi prodotti toccando il pulsante",
+  "connection_error": "Errore di connessione. Per favore, prova più tardi",
+  "product_deletion": "%s è stata rimossa dall'elenco",
+  "update_product_title": "Modifica prodotto",
+  "product_label": "Prodotto",
+  "update_label": "Modifica",
+  "app_share_deep_link_description": "Famlist! Il modo più semplice per fare acquisti",
+  "share_list_link_description": "Unisciti alla mia lista della spesa!"
+}
