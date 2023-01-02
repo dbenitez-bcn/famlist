@@ -8,6 +8,7 @@ import '../../domain/product.dart';
 class EditProductPage extends StatelessWidget {
   final Product product;
   final TextEditingController _titleTextField = TextEditingController();
+  final TextEditingController _descriptionTextField = TextEditingController();
   final ValueNotifier<int> _quantityController;
 
   EditProductPage(this.product, {Key? key})
@@ -16,6 +17,7 @@ class EditProductPage extends StatelessWidget {
 
   void _updateProduct(BuildContext context) {
     product.title = _titleTextField.text;
+    product.description = _descriptionTextField.text;
     product.quantity = _quantityController.value;
     ListsService.updateProduct(AppState.of(context).currentListId!, product);
     Navigator.pop(context);
@@ -24,6 +26,7 @@ class EditProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _titleTextField.text = product.title;
+    _descriptionTextField.text = product.description ?? "";
     return Scaffold(
       appBar: AppBar(title: Text("update_product_title".i18n())),
       body: Padding(
@@ -41,6 +44,21 @@ class EditProductPage extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: TextField(
+                controller: _descriptionTextField,
+                keyboardType: TextInputType.multiline,
+                textCapitalization: TextCapitalization.sentences,
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "product_description_hint_text".i18n(),
+                  labelText: "product_description_label".i18n(),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -50,7 +68,7 @@ class EditProductPage extends StatelessWidget {
                         _quantityController.value--;
                       }
                     },
-                    child: const Circle(icono: Icons.remove)),
+                    child: const Circle(icon: Icons.remove)),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
@@ -76,7 +94,7 @@ class EditProductPage extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () => _quantityController.value++,
-                    child: const Circle(icono: Icons.add)),
+                    child: const Circle(icon: Icons.add)),
               ],
             ),
             ValueListenableBuilder<TextEditingValue>(
@@ -98,9 +116,9 @@ class EditProductPage extends StatelessWidget {
 }
 
 class Circle extends StatelessWidget {
-  final IconData icono;
+  final IconData icon;
 
-  const Circle({Key? key, required this.icono}) : super(key: key);
+  const Circle({Key? key, required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +128,7 @@ class Circle extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Icon(
-        icono,
+        icon,
         color: Colors.white,
         size: 32.0,
       ),

@@ -27,12 +27,13 @@ class ProductView extends StatelessWidget {
                     builder: (context) => EditProductPage(_product)));
           },
           title: Text(_product.title),
-          subtitle: _product.description == null ? null : Text(_product.description!),
-          trailing: GestureDetector(onTap: () =>
-              ListsService.increaseQuantity(
-                  AppState
-                      .of(context)
-                      .currentListId!, _product),
+          subtitle:
+              _product.description != null && _product.description!.isNotEmpty
+                  ? Text(_product.description!)
+                  : null,
+          trailing: GestureDetector(
+              onTap: () => ListsService.increaseQuantity(
+                  AppState.of(context).currentListId!, _product),
               child: Text("x${_product.quantity}")),
         ),
       ),

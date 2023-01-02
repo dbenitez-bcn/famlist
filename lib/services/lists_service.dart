@@ -75,6 +75,7 @@ class ListsService {
         .doc("lists/$listId/products/${product.id}")
         .update({
       "title": product.title,
+      "description": product.description,
       "quantity": product.quantity,
     });
   }
