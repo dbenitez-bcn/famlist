@@ -19,5 +19,7 @@
   "app_share_deep_link_description": "Famlist! A maneira mais fácil de ir às compras.",
   "share_list_link_description": "Junte-se à minha lista de compras!",
   "product_description_hint_text": "(Opcional) Descrição do produto",
-  "product_description_label": "Descrição"
+  "product_description_label": "Descrição",
+  "support_developer": "Apoie o desenvolvedor",
+  "support_developer_message": "Obrigado! Você apoiou o desenvolvedor com esta ação"
 }

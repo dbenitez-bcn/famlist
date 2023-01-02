@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -23,7 +25,8 @@ class FamlistDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("app_name".i18n(), style: Theme.of(context).textTheme.headline3),
+                Text("app_name".i18n(),
+                    style: Theme.of(context).textTheme.headline3),
                 Text("your_lists".i18n(),
                     style: Theme.of(context).textTheme.headlineSmall),
               ],
@@ -41,6 +44,24 @@ class FamlistDrawer extends StatelessWidget {
               title: Text("add_list".i18n()),
             ),
             onTap: () => Navigator.pushNamed(context, '/newList'),
+          ),
+          InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+            child: ListTile(
+              leading: const Icon(Icons.play_circle_outline),
+              title: Text("support_developer".i18n()),
+            ),
+            onTap: () {
+              AdsService.of(context).supportDeveloper(() {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("support_developer_message".i18n()),
+                  ),
+                );
+              });
+              FirebaseAnalytics.instance.logEvent(name: "developer_supported");
+            },
           ),
         ],
       ),

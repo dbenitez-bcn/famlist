@@ -39,7 +39,34 @@ class AdsService extends InheritedWidget {
             },
           );
           _interstitialAd = ad;
-        }, onAdFailedToLoad: (LoadAdError error) {  },
+        },
+        onAdFailedToLoad: (LoadAdError error) {},
+      ),
+    );
+  }
+
+  Future<void> supportDeveloper(Function onClosed) async {
+    await InterstitialAd.load(
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-9458621217720467/4770162715'
+          : 'ca-app-pub-9458621217720467/9639346018',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (InterstitialAd ad) {
+              onClosed();
+              ad.dispose();
+            },
+            onAdFailedToShowFullScreenContent:
+                (InterstitialAd ad, AdError error) {
+              onClosed();
+              ad.dispose();
+            },
+          );
+          ad.show();
+        },
+        onAdFailedToLoad: (LoadAdError error) {},
       ),
     );
   }
