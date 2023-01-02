@@ -3,6 +3,8 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
+import '../../services/ads_service.dart';
+
 class NewListPage extends StatelessWidget {
   final TextEditingController _titleTextField = TextEditingController();
 
@@ -13,6 +15,7 @@ class NewListPage extends StatelessWidget {
     ListsService
         .addList(_titleTextField.value.text)
         .then((value) => state.setList(value));
+    AdsService.of(context).showInterstitial();
     Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
   }
 

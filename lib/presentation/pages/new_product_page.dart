@@ -1,4 +1,5 @@
 import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -62,6 +63,7 @@ class _NewProductPageState extends State<NewProductPage> {
                               _titleTextField.value.text,
                               _descriptionTextField.value.text);
                           AppState.of(context).increaseProductAdded();
+                          AdsService.of(context).showInterstitial();
                           Navigator.pop(context);
                         }
                       : null,

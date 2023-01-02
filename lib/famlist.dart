@@ -3,6 +3,7 @@ import 'package:famlist/presentation/pages/new_list_page.dart';
 import 'package:famlist/presentation/pages/new_product_page.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/custom_banner_ad.dart';
+import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
 import 'package:famlist/utils/famlist_theme.dart';
@@ -21,76 +22,78 @@ class FamlistApp extends StatelessWidget {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
 
     return AppState(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: APP_NAME,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          LocalJsonLocalization.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''),
-          Locale('es', ''),
-          Locale('ca', ''),
-          Locale('pt', ''),
-          Locale('fr', ''),
-          Locale('it', ''),
-        ],
-        localeResolutionCallback: _localeResolution,
-        theme: famlistTheme,
-        routes: <String, WidgetBuilder>{
-          '/newProduct': (BuildContext context) => const NewProductPage(),
-          '/newList': (BuildContext context) => NewListPage(),
-        },
-        home: FutureBuilder<SharedPreferences>(
-          future: SharedPreferences.getInstance(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                if (snapshot.hasData) {
-                  AppState.of(context).setSharedPreferences(snapshot.data!);
-                  return FutureBuilder<void>(
-                    future: _initializeApp(AppState.of(context)),
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.done:
-                          if (snapshot.hasError) {
-                            return Scaffold(
-                              body: Center(
-                                child: Text("app_start_error".i18n()),
-                              ),
-                            );
-                          }
-                          return Column(
-                            children: const [
-                              Expanded(
-                                child: MainPage(),
-                              ),
-                              CustomBannerAd(),
-                            ],
-                          );
-                        default:
-                          return const Scaffold(
-                            body: Center(
-                                child: CircularProgressIndicator.adaptive()),
-                          );
-                      }
-                    },
-                  );
-                }
-                return Scaffold(
-                  body: Center(
-                    child: Text("app_start_error".i18n()),
-                  ),
-                );
-              default:
-                return const Scaffold(
-                  body: Center(child: CircularProgressIndicator.adaptive()),
-                );
-            }
+      child: AdsService(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: APP_NAME,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            LocalJsonLocalization.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''),
+            Locale('es', ''),
+            Locale('ca', ''),
+            Locale('pt', ''),
+            Locale('fr', ''),
+            Locale('it', ''),
+          ],
+          localeResolutionCallback: _localeResolution,
+          theme: famlistTheme,
+          routes: <String, WidgetBuilder>{
+            '/newProduct': (BuildContext context) => const NewProductPage(),
+            '/newList': (BuildContext context) => NewListPage(),
           },
+          home: FutureBuilder<SharedPreferences>(
+            future: SharedPreferences.getInstance(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  if (snapshot.hasData) {
+                    AppState.of(context).setSharedPreferences(snapshot.data!);
+                    return FutureBuilder<void>(
+                      future: _initializeApp(AppState.of(context)),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.done:
+                            if (snapshot.hasError) {
+                              return Scaffold(
+                                body: Center(
+                                  child: Text("app_start_error".i18n()),
+                                ),
+                              );
+                            }
+                            return Column(
+                              children: const [
+                                Expanded(
+                                  child: MainPage(),
+                                ),
+                                CustomBannerAd(),
+                              ],
+                            );
+                          default:
+                            return const Scaffold(
+                              body: Center(
+                                  child: CircularProgressIndicator.adaptive()),
+                            );
+                        }
+                      },
+                    );
+                  }
+                  return Scaffold(
+                    body: Center(
+                      child: Text("app_start_error".i18n()),
+                    ),
+                  );
+                default:
+                  return const Scaffold(
+                    body: Center(child: CircularProgressIndicator.adaptive()),
+                  );
+              }
+            },
+          ),
         ),
       ),
     );
