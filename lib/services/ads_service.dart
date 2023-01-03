@@ -5,12 +5,14 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdsService extends InheritedWidget {
   InterstitialAd? _interstitialAd;
+  late BannerAd _bannerAd;
 
   AdsService({
     Key? key,
     required Widget child,
   }) : super(key: key, child: child) {
     loadInterstitial();
+    loadBanner();
   }
 
   void showInterstitial() {
@@ -71,6 +73,20 @@ class AdsService extends InheritedWidget {
     );
   }
 
+  void loadBanner() {
+    _bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-9458621217720467/9593102800'
+          : 'ca-app-pub-9458621217720467/8583273460',
+      listener: BannerAdListener(
+        onAdFailedToLoad: (ad, error) => ad.dispose(),
+      ),
+      request: const AdRequest(),
+    );
+    _bannerAd!.load();
+  }
+
   @override
   bool updateShouldNotify(covariant AdsService oldWidget) => true;
 
@@ -80,4 +96,6 @@ class AdsService extends InheritedWidget {
     assert(result != null, 'No AdsService found in context');
     return result!;
   }
+
+  BannerAd get bottomBanner => _bannerAd;
 }
