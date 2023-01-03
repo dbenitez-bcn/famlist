@@ -4,6 +4,7 @@
 4. Run `flutter build appbundle`
 5. Go to google play console > app > production > create new version
 6. Upload .aab file
-7. Run `flutter build iOS`
+7. Run `flutter build ios`
 8. Open XCode
-9. Product > archive > upload version
+9. Check version number
+10. Product > archive > upload version
