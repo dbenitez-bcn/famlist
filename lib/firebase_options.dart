@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAgq9vdlKeHjykMhK1nDKwiEsg99NpKerc',
-    appId: '1:360230907282:web:b29e957c3996f84456254b',
-    messagingSenderId: '360230907282',
-    projectId: 'famlist-app',
-    authDomain: 'famlist-app.firebaseapp.com',
-    storageBucket: 'famlist-app.appspot.com',
-    measurementId: 'G-TLRVM35X6G',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCEQD6msVcNw56lTocmCYOLjeiPj-dmPJw',
     appId: '1:360230907282:android:f2b718547724a7fd56254b',
@@ -70,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '360230907282',
     projectId: 'famlist-app',
     storageBucket: 'famlist-app.appspot.com',
+    androidClientId: '360230907282-as6hbdvhnnulb9va56db3ngvm6ul7pp5.apps.googleusercontent.com',
     iosClientId: '360230907282-ck85r4k02krf34bbkrpullftem1j0l97.apps.googleusercontent.com',
     iosBundleId: 'com.logicgear.famlist',
   );

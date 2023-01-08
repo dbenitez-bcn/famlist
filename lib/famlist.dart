@@ -8,6 +8,7 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
 import 'package:famlist/utils/famlist_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -59,6 +60,7 @@ class FamlistApp extends StatelessWidget {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             if (snapshot.hasError) {
+                              FirebaseCrashlytics.instance.recordError(snapshot.error, snapshot.stackTrace);
                               return Scaffold(
                                 body: Center(
                                   child: Text("app_start_error".i18n()),

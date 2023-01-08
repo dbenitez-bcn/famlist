@@ -1,6 +1,7 @@
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/product_view.dart';
 import 'package:famlist/services/lists_service.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -17,20 +18,23 @@ class ProductsListView extends StatelessWidget {
       stream: AppState.of(context).currentListStream,
       builder: (context, snapshot) {
         return StreamBuilder(
-            stream: ListsService.getProducts(snapshot.data!),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data!.isNotEmpty) {
-                  return _buildList(snapshot.data!);
-                }
-                return const EmptyList();
-              } else if (snapshot.hasError) {
-                return Text("connection_error".i18n());
-              } else {
-                return const Center(child: CircularProgressIndicator.adaptive());
+          stream: ListsService.getProducts(snapshot.data!),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.isNotEmpty) {
+                return _buildList(snapshot.data!);
               }
-            });
-      }
+              return const EmptyList();
+            } else if (snapshot.hasError) {
+              FirebaseCrashlytics.instance
+                  .recordError(snapshot.error, snapshot.stackTrace);
+              return Text("connection_error".i18n());
+            } else {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            }
+          },
+        );
+      },
     );
   }
 
@@ -42,12 +46,12 @@ class ProductsListView extends StatelessWidget {
           key: Key(products[index].id),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            ListsService.removeProduct(AppState.of(context).currentListId!, products[index].id);
+            ListsService.removeProduct(
+                AppState.of(context).currentListId!, products[index].id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content:
-                Text("product_deletion".i18n([products[index].title]))
-              ),
+                  content:
+                      Text("product_deletion".i18n([products[index].title]))),
             );
           },
           background: Container(

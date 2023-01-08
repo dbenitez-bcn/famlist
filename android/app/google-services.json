@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "360230907282-as6hbdvhnnulb9va56db3ngvm6ul7pp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.logicgear.famlist",
+            "certificate_hash": "f78c6fb2ef7e44ab24f1c6b0a53e37bb619c1fe1"
+          }
+        },
+        {
           "client_id": "360230907282-8b22i5caovlkhvtl69u7j0gpvmg6002a.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -39,7 +47,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-9458621217720467~1249113894"
     }
   ],
   "configuration_version": "1"
