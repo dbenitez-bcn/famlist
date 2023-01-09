@@ -1,31 +1,44 @@
 import 'dart:async';
 
+import 'package:famlist/list.dart';
+import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState extends InheritedWidget {
-  final StreamController<String> _listController =
-      StreamController<String>.broadcast();
-  late final SharedPreferences _sharedPreferences;
-  String? _currentList; // TODO: Change it to a shared_list type (ideal for list editing name)
+  final StreamController<SharedList> _listController =
+      StreamController<SharedList>.broadcast();
+  final SharedPreferences _sharedPreferences;
+  SharedList? _currentList;
   int _productsAdded = 0;
 
-  AppState({
+  AppState(
+    this._sharedPreferences,
+    this._currentList, {
     Key? key,
     required Widget child,
-  }) : super(key: key, child: child);
-
-  void setList(String newListId) {
-    _currentList = newListId;
-    _listController.sink.add(newListId);
-    _sharedPreferences.setString(LAST_LIST_ID_KEY, newListId);
+  }) : super(key: key, child: child) {
+    FirebaseDynamicLinks.instance.onLink.listen((linkData) {
+      var pathArray = linkData.link.pathSegments;
+      if(pathArray.isNotEmpty) {
+        String listId = linkData.link.pathSegments[0];
+        ListsService.addSharedList(listId).then((value) => setList(value));
+      }
+    });
   }
 
-  Stream<String> get currentListStream => _listController.stream;
+  void setList(SharedList newList) {
+    _currentList = newList;
+    _listController.sink.add(newList);
+    _sharedPreferences.setString(LAST_LIST_ID_KEY, newList.id);
+  }
 
-  String? get currentListId => _currentList;
+  Stream<SharedList> get currentListStream => _listController.stream;
+
+  SharedList? get currentList => _currentList;
 
   void increaseProductAdded() async {
     _productsAdded++;
@@ -34,14 +47,6 @@ class AppState extends InheritedWidget {
       if (await inAppReview.isAvailable()) {
         inAppReview.requestReview();
       }
-    }
-  }
-  void setSharedPreferences(SharedPreferences preferences) {
-    _sharedPreferences = preferences;
-    String? listId = _sharedPreferences.getString(LAST_LIST_ID_KEY);
-    if (listId != null) {
-      _currentList = listId;
-      _listController.sink.add(listId);
     }
   }
 

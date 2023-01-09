@@ -1,3 +1,4 @@
+import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/presentation/wigdet/product_view.dart';
 import 'package:famlist/services/lists_service.dart';
@@ -13,12 +14,15 @@ class ProductsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      initialData: AppState.of(context).currentListId,
+    return StreamBuilder<SharedList?>(
+      initialData: AppState.of(context).currentList,
       stream: AppState.of(context).currentListStream,
       builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const SizedBox();
+        }
         return StreamBuilder(
-          stream: ListsService.getProducts(snapshot.data!),
+          stream: ListsService.getProducts(snapshot.data!.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.isNotEmpty) {
@@ -47,7 +51,7 @@ class ProductsListView extends StatelessWidget {
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
             ListsService.removeProduct(
-                AppState.of(context).currentListId!, products[index].id);
+                AppState.of(context).currentList!.id, products[index].id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                   content:

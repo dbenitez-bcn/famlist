@@ -21,5 +21,10 @@
   "product_description_hint_text": "(Facoltativo) Descrizione del prodotto",
   "product_description_label": "Descrizione",
   "support_developer": "Supporta lo sviluppatore",
-  "support_developer_message": "Grazie! Hai supportato lo sviluppatore con questa azione"
+  "support_developer_message": "Grazie! Hai supportato lo sviluppatore con questa azione",
+  "welcome_title": "Benvenuti in Famlist!",
+  "welcome_subtitle": "Creiamo la tua prima lista della spesa",
+  "first_list": "Crea la tua prima lista",
+  "lets_go": "Andiamo!",
+  "no_list_body": "Aggiungi un nuovo elenco toccando il pulsante"
 }

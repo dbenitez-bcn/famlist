@@ -7,20 +7,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../domain/product.dart';
 
 class ListsService {
-  static Future<String> addList(String title) async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      DocumentReference newList =
-          await FirebaseFirestore.instance.collection("lists").add({
-        "title": title,
-        "created_at": FieldValue.serverTimestamp(),
-      });
-      await addSharedList(newList.id);
-      return newList.id;
-    }
-    return "";
+  static Future<SharedList> addList(String title) async {
+    DocumentReference newList =
+        await FirebaseFirestore.instance.collection("lists").add({
+      "title": title,
+      "created_at": FieldValue.serverTimestamp(),
+    });
+    return await addSharedList(newList.id);
   }
 
-  static Future<void> addSharedList(String listId) async {
+  static Future<SharedList> addSharedList(String listId) async {
     await FirebaseFirestore.instance
         .collection("shared_lists")
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -30,19 +26,17 @@ class ListsService {
       },
       SetOptions(merge: true),
     );
+    return (await getSharedListById(listId))!;
   }
 
-  static Future<String> getListTitle(String listId) async {
-    var list =
-        await FirebaseFirestore.instance.collection("lists").doc(listId).get();
-    return list.data()!["title"];
-  }
-
-  static Future<SharedList> getSharedListById(String id) async {
+  static Future<SharedList?> getSharedListById(String id) async {
     DocumentSnapshot<Map<String, dynamic>> listDocument =
         await FirebaseFirestore.instance.collection("lists").doc(id).get();
 
-    return SharedList(listDocument.id, listDocument.data()!["title"]);
+    if (listDocument.exists){
+      return SharedList(listDocument.id, listDocument.data()!["title"]);
+    }
+    return null;
   }
 
   static addProduct(String listId, String title, String? description) {
@@ -51,7 +45,6 @@ class ListsService {
       "quantity": 1,
       "description": description,
       "created_at": FieldValue.serverTimestamp(),
-
     });
   }
 

@@ -87,7 +87,7 @@ class ListLists extends StatelessWidget {
           return Column(
             children: lists
                 .map(
-                  (id) => FutureBuilder<SharedList>(
+                  (id) => FutureBuilder<SharedList?>(
                     future: ListsService.getSharedListById(id),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -95,7 +95,7 @@ class ListLists extends StatelessWidget {
                           title: Text(snapshot.data!.title),
                           leading: const Icon(Icons.list),
                           onTap: () {
-                            AppState.of(context).setList(snapshot.data!.id);
+                            AppState.of(context).setList(snapshot.data!);
                             Navigator.pop(context);
                           },
                         );

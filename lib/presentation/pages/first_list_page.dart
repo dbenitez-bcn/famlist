@@ -3,10 +3,11 @@ import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
-class NewListPage extends StatelessWidget {
-  final TextEditingController _titleTextField = TextEditingController();
+class WelcomeListPage extends StatelessWidget {
+  final TextEditingController _titleTextField =
+      TextEditingController(text: "default_list_title".i18n());
 
-  NewListPage({Key? key}) : super(key: key);
+  WelcomeListPage({Key? key}) : super(key: key);
 
   void _createList(AppState state, NavigatorState navigator) async {
     var list = await ListsService.addList(_titleTextField.value.text);
@@ -17,7 +18,10 @@ class NewListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("add_list".i18n())),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("first_list".i18n()),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -39,11 +43,12 @@ class NewListPage extends StatelessWidget {
               valueListenable: _titleTextField,
               builder: (context, value, child) {
                 return ElevatedButton(
-                  onPressed:
-                      value.text.isNotEmpty ? () => _createList(
-                        AppState.of(context),
-                        Navigator.of(context),
-                      ) : null,
+                  onPressed: value.text.isNotEmpty
+                      ? () => _createList(
+                            AppState.of(context),
+                            Navigator.of(context),
+                          )
+                      : null,
                   child: Text("create".i18n()),
                 );
               },

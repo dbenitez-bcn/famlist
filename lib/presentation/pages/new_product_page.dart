@@ -1,3 +1,4 @@
+import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/list_state.dart';
 import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
@@ -53,13 +54,13 @@ class _NewProductPageState extends State<NewProductPage> {
             ValueListenableBuilder<TextEditingValue>(
               valueListenable: _titleTextField,
               builder: (context, value, child) {
-                final String? currentListId =
-                    AppState.of(context).currentListId;
+                final SharedList? currentListId =
+                    AppState.of(context).currentList;
                 return ElevatedButton(
                   onPressed: value.text.isNotEmpty && currentListId != null
                       ? () {
                           ListsService.addProduct(
-                              currentListId,
+                              currentListId.id,
                               _titleTextField.value.text,
                               _descriptionTextField.value.text);
                           AppState.of(context).increaseProductAdded();

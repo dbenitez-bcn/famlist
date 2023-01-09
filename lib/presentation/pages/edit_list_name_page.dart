@@ -17,7 +17,7 @@ class EditProductPage extends StatelessWidget {
   void _updateProduct(BuildContext context) {
     product.title = _titleTextField.text;
     product.quantity = _quantityController.value;
-    ListsService.updateProduct(AppState.of(context).currentListId!, product);
+    ListsService.updateProduct(AppState.of(context).currentList!.id, product);
     Navigator.pop(context);
   }
 
