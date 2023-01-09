@@ -31,6 +31,19 @@ class ListsService {
     return (await getSharedListById(listId))!;
   }
 
+  static Future<SharedList> removeSharedList(String listId) async {
+    await FirebaseFirestore.instance
+        .collection("shared_lists")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set(
+      {
+        "lists": FieldValue.arrayRemove([listId])
+      },
+      SetOptions(merge: true),
+    );
+    return (await getSharedListById(listId))!;
+  }
+
   static Future<SharedList?> getSharedListById(String id) async {
     DocumentSnapshot<Map<String, dynamic>> listDocument =
         await FirebaseFirestore.instance.collection("lists").doc(id).get();

@@ -1,9 +1,9 @@
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/pages/welcome_page.dart';
 import 'package:famlist/presentation/state/app_state.dart';
+import 'package:famlist/presentation/wigdet/appbar_manu.dart';
 import 'package:famlist/presentation/wigdet/custom_banner_ad.dart';
 import 'package:famlist/presentation/wigdet/famlist_drawer.dart';
-import 'package:famlist/presentation/wigdet/share_list_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../wigdet/products_list_view.dart';
@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
                   appBar: AppBar(
                     title: Text(snapshot.data!.title),
                     actions: const [
-                      ShareListIcon(),
+                      AppBarMenu(),
                     ],
                   ),
                   drawer: const FamlistDrawer(),

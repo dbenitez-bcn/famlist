@@ -26,5 +26,13 @@
   "welcome_subtitle": "Let's create your first shopping list",
   "first_list": "Create your first list",
   "lets_go": "Let's go!",
-  "no_list_body": "Add a new list tapping the button"
+  "no_list_body": "Add a new list tapping the button",
+  "share": "Share",
+  "edit": "Edit",
+  "delete": "Delete",
+  "yes": "Yes",
+  "no": "No",
+  "delete_list_dialog_title": "Delete list",
+  "delete_list_dialog_body": "Do you want to delete %s ?"
+
 }

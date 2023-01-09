@@ -5,23 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ShareListIcon extends StatelessWidget {
-  const ShareListIcon({Key? key}) : super(key: key);
+class ShareListMenuItem {
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () async {
+  static PopupMenuItem<Function> build(BuildContext context) {
+    return PopupMenuItem<Function>(
+      child: Text("share".i18n()),
+      value: () async {
         final link = await _generateShareLink(context);
-        await Share.share(
-            "${"share_list_link_description".i18n()} $link");
+        await Share.share("${"share_list_link_description".i18n()} $link");
         FirebaseAnalytics.instance.logEvent(name: "list_shared");
       },
-      icon: const Icon(Icons.share),
     );
   }
 
-  Future<Uri> _generateShareLink(BuildContext context) async {
+  static Future<Uri> _generateShareLink(BuildContext context) async {
     final parameters = DynamicLinkParameters(
       link: Uri.parse(
           "https://famlist-app.web.app/${AppState.of(context).currentList!.id}"),
