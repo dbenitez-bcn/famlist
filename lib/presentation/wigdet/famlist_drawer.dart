@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
+import 'package:famlist/presentation/wigdet/shared_list_tile.dart';
 import 'package:famlist/services/ads_service.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,43 +79,17 @@ class ListLists extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      stream: _listsStream,
+    return StreamBuilder<List<SharedList>>(
+      stream: AppState.of(context).userLists,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<dynamic> lists = snapshot.data!.data()!["lists"];
-          return Column(
-            children: lists
-                .map(
-                  (id) => FutureBuilder<SharedList?>(
-                    future: ListsService.getSharedListById(id),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListTile(
-                          selectedColor: Colors.black87,
-                          selectedTileColor:
-                              Theme.of(context).primaryColor.withAlpha(75),
-                          selected: snapshot.data!.id ==
-                              AppState.of(context).currentList!.id,
-                          title: Text(snapshot.data!.title),
-                          leading: const Icon(
-                            Icons.list,
-                            color: Colors.grey,
-                          ),
-                          onTap: () {
-                            AppState.of(context).setList(snapshot.data!);
-                            Navigator.pop(context);
-                          },
-                        );
-                      }
-                      return const SizedBox();
-                    },
-                  ),
-                )
-                .toList(),
-          );
+        if (!snapshot.hasData) {
+          return const SizedBox();
         }
-        return const SizedBox();
+        return Column(
+          children: snapshot.data!
+              .map((SharedList list) => SharedListTile(list: list))
+              .toList(),
+        );
       },
     );
   }

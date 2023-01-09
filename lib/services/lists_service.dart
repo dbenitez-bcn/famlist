@@ -111,6 +111,32 @@ class ListsService {
         .map((event) => event.docs.map(_mapToProduct).toList());
   }
 
+  static Stream<List<SharedList>> getSharedLists() {
+    return FirebaseFirestore.instance
+        .collection("shared_lists")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .map(_getLists)
+        .asyncMap(_mapLists);
+  }
+
+  static List<dynamic> _getLists(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    if (document.data() != null) {
+      return document.data()!["lists"];
+    }
+    return [];
+  }
+
+  static Future<List<SharedList>> _mapLists(List<dynamic> ids) async {
+    List<SharedList> arr = [];
+    for (String id in ids) {
+      var list = await getSharedListById(id);
+      if (list != null) arr.add(list);
+    }
+    return arr;
+  }
+
   static Product _mapToProduct(QueryDocumentSnapshot<Map<String, dynamic>> e) =>
       Product.fromMap(e.id, e.data());
 }

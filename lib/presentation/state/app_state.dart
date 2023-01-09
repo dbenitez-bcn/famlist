@@ -58,8 +58,10 @@ class AppState extends InheritedWidget {
 
   Future<void> removeCurrentList() async {
     await ListsService.removeSharedList(_currentList!.id);
-    // TODO: Update state
+    // _
   }
+
+  Stream<List<SharedList>> get userLists => ListsService.getSharedLists();
 
   @override
   bool updateShouldNotify(covariant AppState oldWidget) => true;
