@@ -40,7 +40,10 @@ class FamlistDrawer extends StatelessWidget {
           InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             child: ListTile(
-              leading: const Icon(Icons.add_circle_outline),
+              leading: const Icon(
+                Icons.add_circle_outline,
+                color: Colors.grey,
+              ),
               title: Text("add_list".i18n()),
             ),
             onTap: () => Navigator.pushNamed(context, '/newList'),
@@ -48,7 +51,10 @@ class FamlistDrawer extends StatelessWidget {
           InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             child: ListTile(
-              leading: const Icon(Icons.play_circle_outline),
+              leading: const Icon(
+                Icons.play_circle_outline,
+                color: Colors.grey,
+              ),
               title: Text("support_developer".i18n()),
             ),
             onTap: () {
@@ -92,8 +98,17 @@ class ListLists extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListTile(
+                          selectedColor: Colors.black87,
+                          selectedTileColor:
+                              Theme.of(context).primaryColor.withAlpha(75),
+                          // selectedTileColor: const Color.fromRGBO(250, 253, 240, 1.0),
+                          selected: snapshot.data!.id ==
+                              AppState.of(context).currentList!.id,
                           title: Text(snapshot.data!.title),
-                          leading: const Icon(Icons.list),
+                          leading: const Icon(
+                            Icons.list,
+                            color: Colors.grey,
+                          ),
                           onTap: () {
                             AppState.of(context).setList(snapshot.data!);
                             Navigator.pop(context);
