@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
-import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';

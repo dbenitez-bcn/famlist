@@ -1,4 +1,4 @@
-import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/presentation/state/app_state.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
 import 'package:famlist/presentation/pages/new_product_page.dart';
 import 'package:famlist/presentation/pages/welcome_page.dart';
-import 'package:famlist/presentation/state/list_state.dart';
+import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
