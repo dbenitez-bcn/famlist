@@ -49,34 +49,35 @@ class DeleteListMenuItem {
 
   static _showAndroidDialog(BuildContext context) async {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("delete_list_dialog_title".i18n()),
-            content: Text("delete_list_dialog_body"
-                .i18n([AppState.of(context).currentList!.title])),
-            actions: [
-              TextButton(
-                child: Text(
-                  "no".i18n(),
-                  style: const TextStyle(color: Colors.grey),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("delete_list_dialog_title".i18n()),
+          content: Text("delete_list_dialog_body"
+              .i18n([AppState.of(context).currentList!.title])),
+          actions: [
+            TextButton(
+              child: Text(
+                "no".i18n(),
+                style: const TextStyle(color: Colors.grey),
               ),
-              TextButton(
-                child: Text(
-                  "yes".i18n(),
-                  style: const TextStyle(color: Colors.black),
-                ),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  await AppState.of(context).removeCurrentList();
-                },
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "yes".i18n(),
+                style: const TextStyle(color: Colors.black),
               ),
-            ],
-          );
-        });
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await AppState.of(context).removeCurrentList();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

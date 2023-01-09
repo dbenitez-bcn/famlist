@@ -1,6 +1,7 @@
 import 'package:famlist/domain/dtos/app_initialization_dto.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/material_app_error.dart';
+import 'package:famlist/presentation/pages/edit_list_title_page.dart';
 import 'package:famlist/presentation/pages/main_page.dart';
 import 'package:famlist/presentation/pages/new_list_page.dart';
 import 'package:famlist/presentation/pages/new_product_page.dart';
@@ -74,7 +75,8 @@ class FamlistApp extends StatelessWidget {
                       '/welcomeList': (BuildContext context) =>
                           WelcomeListPage(),
                       '/welcome': (BuildContext context) => const WelcomePage(),
-                      // '/home': (BuildContext context) => const MainPage(),
+                      '/editList': (BuildContext context) =>
+                          EditListTitlePage(),
                     },
                     home: const MainPage(),
                   ),

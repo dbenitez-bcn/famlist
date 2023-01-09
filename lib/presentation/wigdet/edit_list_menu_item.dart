@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class EditListMenuItem {
-
-  static PopupMenuItem build(BuildContext context) {
-    return PopupMenuItem(
+  static PopupMenuItem<Function> build(BuildContext context) {
+    return PopupMenuItem<Function>(
       child: Text("edit".i18n()),
-      onTap: () async {
-      },
+      value: () => Navigator.of(context).pushNamed('/editList'),
     );
   }
 }

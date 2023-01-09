@@ -33,6 +33,7 @@
   "yes": "Yes",
   "no": "No",
   "delete_list_dialog_title": "Delete list",
-  "delete_list_dialog_body": "Do you want to delete %s ?"
-
+  "delete_list_dialog_body": "Do you want to delete %s ?",
+  "edit_list": "Edit list",
+  "save": "Save"
 }

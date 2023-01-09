@@ -23,7 +23,7 @@ class AppState extends InheritedWidget {
   }) : super(key: key, child: child) {
     FirebaseDynamicLinks.instance.onLink.listen((linkData) {
       var pathArray = linkData.link.pathSegments;
-      if(pathArray.isNotEmpty) {
+      if (pathArray.isNotEmpty) {
         String listId = linkData.link.pathSegments[0];
         ListsService.addSharedList(listId).then((value) => setList(value));
       }
@@ -34,6 +34,12 @@ class AppState extends InheritedWidget {
     _currentList = newList;
     _listController.sink.add(newList);
     _sharedPreferences.setString(LAST_LIST_ID_KEY, newList.id);
+  }
+
+  Future<void> updateListTitle(String newTitle) async {
+    SharedList newList = SharedList(_currentList!.id, newTitle);
+    setList(newList);
+    await ListsService.updateList(_currentList!);
   }
 
   Stream<SharedList> get currentListStream => _listController.stream;

@@ -9,13 +9,23 @@ import '../domain/product.dart';
 
 class ListsService {
   static Future<SharedList> addList(String title) async {
-    FirebaseAnalytics.instance.logEvent(name: "list_created");
+    FirebaseAnalytics.instance
+        .logEvent(name: "list_created"); // TODO: Move to app state
     DocumentReference newList =
         await FirebaseFirestore.instance.collection("lists").add({
       "title": title,
       "created_at": FieldValue.serverTimestamp(),
     });
     return await addSharedList(newList.id);
+  }
+
+  static Future<void> updateList(SharedList list) async {
+    FirebaseAnalytics.instance
+        .logEvent(name: "list_updated"); // TODO: Move to app state
+    await FirebaseFirestore.instance
+        .collection("lists")
+        .doc(list.id)
+        .update({"title": list.title});
   }
 
   static Future<SharedList> addSharedList(String listId) async {
@@ -48,14 +58,15 @@ class ListsService {
     DocumentSnapshot<Map<String, dynamic>> listDocument =
         await FirebaseFirestore.instance.collection("lists").doc(id).get();
 
-    if (listDocument.exists){
+    if (listDocument.exists) {
       return SharedList(listDocument.id, listDocument.data()!["title"]);
     }
     return null;
   }
 
   static addProduct(String listId, String title, String? description) {
-    FirebaseAnalytics.instance.logEvent(name: "product_added");
+    FirebaseAnalytics.instance
+        .logEvent(name: "product_added"); // TODO: Move to app state
     FirebaseFirestore.instance.collection("lists/$listId/products").add({
       "title": title,
       "quantity": 1,
@@ -73,7 +84,8 @@ class ListsService {
   }
 
   static void removeProduct(String listId, String productId) {
-    FirebaseAnalytics.instance.logEvent(name: "product_deleted");
+    FirebaseAnalytics.instance
+        .logEvent(name: "product_deleted"); // TODO: Move to app state
     FirebaseFirestore.instance
         .collection("lists/$listId/products")
         .doc(productId)
@@ -81,7 +93,8 @@ class ListsService {
   }
 
   static void updateProduct(String listId, Product product) async {
-    FirebaseAnalytics.instance.logEvent(name: "product_updated");
+    FirebaseAnalytics.instance
+        .logEvent(name: "product_updated"); // TODO: Move to app state
     await FirebaseFirestore.instance
         .doc("lists/$listId/products/${product.id}")
         .update({

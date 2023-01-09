@@ -9,10 +9,8 @@ class AppBarMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      onSelected: (callback) {
-        callback();
-      },
+    return PopupMenuButton<Function>(
+      onSelected: (callback) => callback(),
       itemBuilder: (context) {
         return [
           ShareListMenuItem.build(context),
