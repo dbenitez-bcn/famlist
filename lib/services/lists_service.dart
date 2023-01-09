@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../domain/product.dart';
 
 class ListsService {
   static Future<SharedList> addList(String title) async {
+    FirebaseAnalytics.instance.logEvent(name: "list_created");
     DocumentReference newList =
         await FirebaseFirestore.instance.collection("lists").add({
       "title": title,
@@ -40,6 +42,7 @@ class ListsService {
   }
 
   static addProduct(String listId, String title, String? description) {
+    FirebaseAnalytics.instance.logEvent(name: "product_added");
     FirebaseFirestore.instance.collection("lists/$listId/products").add({
       "title": title,
       "quantity": 1,
@@ -57,6 +60,7 @@ class ListsService {
   }
 
   static void removeProduct(String listId, String productId) {
+    FirebaseAnalytics.instance.logEvent(name: "product_deleted");
     FirebaseFirestore.instance
         .collection("lists/$listId/products")
         .doc(productId)
@@ -64,6 +68,7 @@ class ListsService {
   }
 
   static void updateProduct(String listId, Product product) async {
+    FirebaseAnalytics.instance.logEvent(name: "product_updated");
     await FirebaseFirestore.instance
         .doc("lists/$listId/products/${product.id}")
         .update({
