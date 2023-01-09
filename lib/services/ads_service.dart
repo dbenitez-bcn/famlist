@@ -84,7 +84,7 @@ class AdsService extends InheritedWidget {
       ),
       request: const AdRequest(),
     );
-    _bannerAd!.load();
+    _bannerAd.load();
   }
 
   @override
