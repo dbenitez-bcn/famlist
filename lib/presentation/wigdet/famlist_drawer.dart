@@ -37,26 +37,20 @@ class FamlistDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Divider(),
           ),
-          InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            child: ListTile(
-              leading: const Icon(
-                Icons.add_circle_outline,
-                color: Colors.grey,
-              ),
-              title: Text("add_list".i18n()),
+          ListTile(
+            leading: const Icon(
+              Icons.add_circle_outline,
+              color: Colors.grey,
             ),
+            title: Text("add_list".i18n()),
             onTap: () => Navigator.pushNamed(context, '/newList'),
           ),
-          InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            child: ListTile(
-              leading: const Icon(
-                Icons.play_circle_outline,
-                color: Colors.grey,
-              ),
-              title: Text("support_developer".i18n()),
+          ListTile(
+            leading: const Icon(
+              Icons.play_circle_outline,
+              color: Colors.grey,
             ),
+            title: Text("support_developer".i18n()),
             onTap: () {
               AdsService.of(context).supportDeveloper(() {
                 Navigator.of(context).pop();
@@ -101,7 +95,6 @@ class ListLists extends StatelessWidget {
                           selectedColor: Colors.black87,
                           selectedTileColor:
                               Theme.of(context).primaryColor.withAlpha(75),
-                          // selectedTileColor: const Color.fromRGBO(250, 253, 240, 1.0),
                           selected: snapshot.data!.id ==
                               AppState.of(context).currentList!.id,
                           title: Text(snapshot.data!.title),
