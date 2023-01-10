@@ -6,6 +6,7 @@ import 'package:famlist/utils/constants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,5 +29,6 @@ Future<void> main() async {
   var shared = await SharedPreferences.getInstance();
   shared.remove(LAST_LIST_ID_KEY);
   FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   runApp(const FamlistApp());
 }
