@@ -58,8 +58,8 @@ class DeleteListMenuItem {
           actions: [
             TextButton(
               child: Text(
-                "no".i18n(),
-                style: const TextStyle(color: Colors.grey),
+                "cancel".i18n(),
+                style: const TextStyle(color: Colors.black87),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,8 +67,8 @@ class DeleteListMenuItem {
             ),
             TextButton(
               child: Text(
-                "yes".i18n(),
-                style: const TextStyle(color: Colors.black),
+                "delete".i18n(),
+                style: const TextStyle(color: Colors.red),
               ),
               onPressed: () async {
                 Navigator.of(context).pop();
