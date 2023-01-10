@@ -120,6 +120,18 @@ class ListsService {
         .asyncMap(_mapLists);
   }
 
+  static Future<SharedList?> getFirstSharedList() async {
+    var foo = await FirebaseFirestore.instance
+        .collection("shared_lists")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    List<dynamic> ids = foo["lists"];
+    if (ids.isNotEmpty) {
+      return await getSharedListById(ids[0]);
+    }
+    return null;
+  }
+
   static List<dynamic> _getLists(
       DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {

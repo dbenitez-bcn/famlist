@@ -9,8 +9,8 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState extends InheritedWidget {
-  final StreamController<SharedList> _listController =
-      StreamController<SharedList>.broadcast();
+  final StreamController<SharedList?> _listController =
+      StreamController<SharedList?>.broadcast();
   final SharedPreferences _sharedPreferences;
   SharedList? _currentList;
   int _productsAdded = 0;
@@ -30,10 +30,14 @@ class AppState extends InheritedWidget {
     });
   }
 
-  void setList(SharedList newList) {
+  void setList(SharedList? newList) {
     _currentList = newList;
     _listController.sink.add(newList);
-    _sharedPreferences.setString(LAST_LIST_ID_KEY, newList.id);
+    if (newList == null) {
+      _sharedPreferences.remove(LAST_LIST_ID_KEY);
+    } else {
+      _sharedPreferences.setString(LAST_LIST_ID_KEY, newList.id);
+    }
   }
 
   Future<void> updateListTitle(String newTitle) async {
@@ -42,7 +46,7 @@ class AppState extends InheritedWidget {
     await ListsService.updateList(_currentList!);
   }
 
-  Stream<SharedList> get currentListStream => _listController.stream;
+  Stream<SharedList?> get currentListStream => _listController.stream;
 
   SharedList? get currentList => _currentList;
 
@@ -58,7 +62,7 @@ class AppState extends InheritedWidget {
 
   Future<void> removeCurrentList() async {
     await ListsService.removeSharedList(_currentList!.id);
-    // _
+    setList(await ListsService.getFirstSharedList());
   }
 
   Stream<List<SharedList>> get userLists => ListsService.getSharedLists();
