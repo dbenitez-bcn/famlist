@@ -15,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   MobileAds.instance.updateRequestConfiguration(
-    RequestConfiguration(testDeviceIds: ["DD996A2C5DBCE4FC85E32DF07AD9BA4A"])
+    RequestConfiguration(testDeviceIds: ["DD996A2C5DBCE4FC85E32DF07AD9BA4A", "A8CA11D5DD995E9F339E8FDD05103001"])
   );
   await Firebase.initializeApp();
   String host = Platform.isAndroid ? '10.0.2.2' : '127.0.0.1';
