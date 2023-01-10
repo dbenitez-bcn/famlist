@@ -27,11 +27,7 @@ class MaterialAppError extends StatelessWidget {
       ],
       localeResolutionCallback: _localeResolution,
       theme: famlistTheme,
-      home: Scaffold(
-        body: Center(
-          child: Text("app_start_error".i18n()),
-        ),
-      ),
+      home: const AppStartErrorPage(),
     );
   }
 
@@ -43,3 +39,17 @@ class MaterialAppError extends StatelessWidget {
     return const Locale('en', '');
   }
 }
+
+class AppStartErrorPage extends StatelessWidget {
+  const AppStartErrorPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("app_start_error".i18n()),
+      ),
+    );
+  }
+}
+
