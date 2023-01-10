@@ -26,5 +26,15 @@
   "welcome_subtitle": "Creiamo la tua prima lista della spesa",
   "first_list": "Crea la tua prima lista",
   "lets_go": "Andiamo!",
-  "no_list_body": "Aggiungi un nuovo elenco toccando il pulsante"
+  "no_list_body": "Aggiungi un nuovo elenco toccando il pulsante",
+  "share": "Condividere",
+  "edit": "Modificare",
+  "delete": "Elimina",
+  "cancel": "Annulla",
+  "yes": "Si",
+  "no": "No",
+  "delete_list_dialog_title": "Elimina elenco",
+  "delete_list_dialog_body": "Vuoi eliminare %s ?",
+  "edit_list": "Modifica elenco",
+  "save": "Salva"
 }

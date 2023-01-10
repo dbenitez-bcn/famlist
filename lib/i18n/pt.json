@@ -26,5 +26,15 @@
   "welcome_subtitle": "Vamos criar sua primeira lista de compras",
   "first_list": "Crie sua primeira lista",
   "lets_go": "Vamos!",
-  "no_list_body": "Adicione uma nova lista tocando no botão"
+  "no_list_body": "Adicione uma nova lista tocando no botão",
+  "share": "Compartilhar",
+  "edit": "Editar",
+  "delete": "Retirar",
+  "cancel": "Cancelar",
+  "yes": "Sim",
+  "no": "Não",
+  "delete_list_dialog_title": "Retirar lista",
+  "delete_list_dialog_body": "Você deseja excluir %s ?",
+  "edit_list": "Editar lista",
+  "save": "Salve"
 }
