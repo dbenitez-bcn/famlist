@@ -58,14 +58,7 @@ class FamlistApp extends StatelessWidget {
                       GlobalCupertinoLocalizations.delegate,
                       LocalJsonLocalization.delegate,
                     ],
-                    supportedLocales: const [
-                      Locale('en', ''),
-                      Locale('es', ''),
-                      Locale('ca', ''),
-                      Locale('pt', ''),
-                      Locale('fr', ''),
-                      Locale('it', ''),
-                    ],
+                    supportedLocales: SUPPORTED_LOCALES,
                     localeResolutionCallback: _localeResolution,
                     theme: famlistTheme,
                     routes: <String, WidgetBuilder>{
