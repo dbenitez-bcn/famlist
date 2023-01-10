@@ -27,6 +27,12 @@ class DeleteListMenuItem {
               .i18n([AppState.of(context).currentList!.title])),
           actions: <CupertinoDialogAction>[
             CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("no".i18n()),
+            ),
+            CupertinoDialogAction(
               isDefaultAction: true,
               isDestructiveAction: true,
               onPressed: () async {
@@ -34,12 +40,6 @@ class DeleteListMenuItem {
                 await AppState.of(context).removeCurrentList();
               },
               child: Text("yes".i18n()),
-            ),
-            CupertinoDialogAction(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("no".i18n()),
             ),
           ],
         );
