@@ -12,7 +12,7 @@ class AdsService extends InheritedWidget {
     required Widget child,
   }) : super(key: key, child: child) {
     loadInterstitial();
-    loadBanner();
+    _initBanner();
   }
 
   void showInterstitial() {
@@ -73,7 +73,7 @@ class AdsService extends InheritedWidget {
     );
   }
 
-  void loadBanner() {
+  void _initBanner() {
     _bannerAd = BannerAd(
       size: AdSize.banner,
       adUnitId: Platform.isAndroid
@@ -84,7 +84,6 @@ class AdsService extends InheritedWidget {
       ),
       request: const AdRequest(),
     );
-    _bannerAd.load();
   }
 
   @override
