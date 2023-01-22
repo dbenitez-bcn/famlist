@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/domain/dtos/app_initialization_dto.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/material_app_error.dart';
@@ -11,6 +12,7 @@ import 'package:famlist/services/ads_service.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
 import 'package:famlist/utils/famlist_theme.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -48,6 +50,7 @@ class FamlistApp extends StatelessWidget {
               }
               return AppState(
                 snapshot.data!.preferences,
+                snapshot.data!.listsService,
                 snapshot.data!.sharedList,
                 child: AdsService(
                   child: MaterialApp(
@@ -91,27 +94,30 @@ class FamlistApp extends StatelessWidget {
 
   Future<AppInitializationDto> _initializeApp() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await FirebaseAuth.instance.signInAnonymously();
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    ListsService listsService = ListsService(
+        FirebaseAnalytics.instance, FirebaseFirestore.instance, firebaseAuth);
+    await firebaseAuth.signInAnonymously();
 
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
       var pathArray = initialLink.link.pathSegments;
       if (pathArray.isNotEmpty) {
-        SharedList? list = await ListsService.getSharedListById(pathArray[0]);
+        SharedList? list = await listsService.getSharedListById(pathArray[0]);
         if (list != null) {
-          await ListsService.addSharedList(list.id);
+          await listsService.addSharedList(list.id);
           await preferences.setString(LAST_LIST_ID_KEY, list.id);
-          return AppInitializationDto(preferences, list);
+          return AppInitializationDto(preferences, listsService, list);
         }
       }
     }
 
     String? listId = preferences.getString(LAST_LIST_ID_KEY);
     if (listId != null) {
-      return AppInitializationDto(
-          preferences, await ListsService.getSharedListById(listId));
+      return AppInitializationDto(preferences, listsService,
+          await listsService.getSharedListById(listId));
     }
-    return AppInitializationDto(preferences, null);
+    return AppInitializationDto(preferences, listsService, null);
   }
 }

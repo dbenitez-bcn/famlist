@@ -1,7 +1,6 @@
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/services/ads_service.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -18,6 +17,7 @@ class _NewProductPageState extends State<NewProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = AppState.of(context);
     return Scaffold(
       appBar: AppBar(title: Text("add_product".i18n())),
       body: Padding(
@@ -55,15 +55,14 @@ class _NewProductPageState extends State<NewProductPage> {
               valueListenable: _titleTextField,
               builder: (context, value, child) {
                 final SharedList? currentListId =
-                    AppState.of(context).currentList;
+                    appState.currentList;
                 return ElevatedButton(
                   onPressed: value.text.isNotEmpty && currentListId != null
                       ? () {
-                          ListsService.addProduct(
-                              currentListId.id,
+                          appState.addProduct(
                               _titleTextField.value.text,
                               _descriptionTextField.value.text);
-                          AppState.of(context).increaseProductAdded();
+                          appState.increaseProductAdded();
                           AdsService.of(context).showInterstitial();
                           Navigator.pop(context);
                         }

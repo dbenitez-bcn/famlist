@@ -1,5 +1,4 @@
 import 'package:famlist/presentation/state/app_state.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -9,7 +8,7 @@ class NewListPage extends StatelessWidget {
   NewListPage({Key? key}) : super(key: key);
 
   void _createList(AppState state, NavigatorState navigator) async {
-    var list = await ListsService.addList(_titleTextField.value.text);
+    var list = await state.addList(_titleTextField.value.text);
     state.setList(list);
     navigator.popUntil(ModalRoute.withName(Navigator.defaultRouteName));
   }
@@ -39,11 +38,12 @@ class NewListPage extends StatelessWidget {
               valueListenable: _titleTextField,
               builder: (context, value, child) {
                 return ElevatedButton(
-                  onPressed:
-                      value.text.isNotEmpty ? () => _createList(
-                        AppState.of(context),
-                        Navigator.of(context),
-                      ) : null,
+                  onPressed: value.text.isNotEmpty
+                      ? () => _createList(
+                            AppState.of(context),
+                            Navigator.of(context),
+                          )
+                      : null,
                   child: Text("create".i18n()),
                 );
               },

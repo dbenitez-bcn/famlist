@@ -1,5 +1,4 @@
 import 'package:famlist/presentation/state/app_state.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -19,7 +18,7 @@ class EditProductPage extends StatelessWidget {
     product.title = _titleTextField.text;
     product.description = _descriptionTextField.text;
     product.quantity = _quantityController.value;
-    ListsService.updateProduct(AppState.of(context).currentList!.id, product);
+    AppState.of(context).updateProduct(product);
     Navigator.pop(context);
   }
 

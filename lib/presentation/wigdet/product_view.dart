@@ -1,6 +1,5 @@
 import 'package:famlist/presentation/pages/edit_product_page.dart';
 import 'package:famlist/presentation/state/app_state.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/product.dart';
@@ -32,8 +31,7 @@ class ProductView extends StatelessWidget {
                   ? Text(_product.description!)
                   : null,
           trailing: GestureDetector(
-              onTap: () => ListsService.increaseQuantity(
-                  AppState.of(context).currentList!.id, _product),
+              onTap: () => AppState.of(context).increaseQuantity(_product),
               child: Text("x${_product.quantity}")),
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/presentation/wigdet/product_view.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -22,7 +21,7 @@ class ProductsListView extends StatelessWidget {
           return const SizedBox();
         }
         return StreamBuilder(
-          stream: ListsService.getProducts(snapshot.data!.id),
+          stream: AppState.of(context).getProducts(snapshot.data!.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.isNotEmpty) {
@@ -50,8 +49,7 @@ class ProductsListView extends StatelessWidget {
           key: Key(products[index].id),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            ListsService.removeProduct(
-                AppState.of(context).currentList!.id, products[index].id);
+            AppState.of(context).removeProduct(products[index].id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                   content:

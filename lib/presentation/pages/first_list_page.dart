@@ -1,5 +1,4 @@
 import 'package:famlist/presentation/state/app_state.dart';
-import 'package:famlist/services/lists_service.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -10,7 +9,7 @@ class WelcomeListPage extends StatelessWidget {
   WelcomeListPage({Key? key}) : super(key: key);
 
   void _createList(AppState state, NavigatorState navigator) async {
-    var list = await ListsService.addList(_titleTextField.value.text);
+    var list = await state.addList(_titleTextField.value.text);
     state.setList(list);
     navigator.popUntil(ModalRoute.withName(Navigator.defaultRouteName));
   }

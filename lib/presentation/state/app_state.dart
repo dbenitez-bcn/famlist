@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:famlist/domain/product.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/services/lists_service.dart';
 import 'package:famlist/utils/constants.dart';
@@ -12,11 +13,13 @@ class AppState extends InheritedWidget {
   final StreamController<SharedList?> _listController =
       StreamController<SharedList?>.broadcast();
   final SharedPreferences _sharedPreferences;
+  final ListsService _listsService;
   SharedList? _currentList;
   int _productsAdded = 0;
 
   AppState(
     this._sharedPreferences,
+    this._listsService,
     this._currentList, {
     Key? key,
     required Widget child,
@@ -25,7 +28,7 @@ class AppState extends InheritedWidget {
       var pathArray = linkData.link.pathSegments;
       if (pathArray.isNotEmpty) {
         String listId = linkData.link.pathSegments[0];
-        ListsService.addSharedList(listId).then((value) => setList(value));
+        _listsService.addSharedList(listId).then((value) => setList(value));
       }
     });
   }
@@ -40,10 +43,14 @@ class AppState extends InheritedWidget {
     }
   }
 
+  Future<SharedList> addList(String title) async {
+    return _listsService.addList(title);
+  }
+
   Future<void> updateListTitle(String newTitle) async {
     SharedList newList = SharedList(_currentList!.id, newTitle);
     setList(newList);
-    await ListsService.updateList(_currentList!);
+    await _listsService.updateList(_currentList!);
   }
 
   Stream<SharedList?> get currentListStream => _listController.stream;
@@ -61,11 +68,31 @@ class AppState extends InheritedWidget {
   }
 
   Future<void> removeCurrentList() async {
-    await ListsService.removeSharedList(_currentList!.id);
-    setList(await ListsService.getFirstSharedList());
+    await _listsService.removeSharedList(_currentList!.id);
+    setList(await _listsService.getFirstSharedList());
   }
 
-  Stream<List<SharedList>> get userLists => ListsService.getSharedLists();
+  void increaseQuantity(Product product) async {
+    _listsService.increaseQuantity(currentList!.id, product);
+  }
+
+  Stream<List<Product>> getProducts(String listId) {
+    return _listsService.getProducts(listId);
+  }
+
+  void addProduct(String title, String description) {
+    _listsService.addProduct(currentList!.id, title, description);
+  }
+
+  void removeProduct(String productId) {
+    _listsService.removeProduct(currentList!.id, productId);
+  }
+
+  void updateProduct(Product product) {
+    _listsService.updateProduct(currentList!.id, product);
+  }
+
+  Stream<List<SharedList>> get userLists => _listsService.getSharedLists();
 
   @override
   bool updateShouldNotify(covariant AppState oldWidget) => true;
