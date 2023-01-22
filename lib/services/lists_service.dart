@@ -44,6 +44,27 @@ class ListsService {
     return (await getSharedListById(listId))!;
   }
 
+  Stream<List<SharedList>> getSharedLists() {
+    return _firestore
+        .collection("shared_lists")
+        .doc(_auth.currentUser!.uid)
+        .snapshots()
+        .map(_getLists)
+        .asyncMap(_mapLists);
+  }
+
+  Future<SharedList?> getFirstSharedList() async {
+    var foo = await _firestore
+        .collection("shared_lists")
+        .doc(_auth.currentUser!.uid)
+        .get();
+    List<dynamic> ids = foo["lists"];
+    if (ids.isNotEmpty) {
+      return await getSharedListById(ids[0]);
+    }
+    return null;
+  }
+
   Future<void> removeSharedList(String listId) async {
     _analytics.logEvent(name: "list_removed"); // TODO: Move to app state
     await _firestore
@@ -102,27 +123,6 @@ class ListsService {
         .collection("lists/$listId/products")
         .snapshots()
         .map((event) => event.docs.map(_mapToProduct).toList());
-  }
-
-  Stream<List<SharedList>> getSharedLists() {
-    return _firestore
-        .collection("shared_lists")
-        .doc(_auth.currentUser!.uid)
-        .snapshots()
-        .map(_getLists)
-        .asyncMap(_mapLists);
-  }
-
-  Future<SharedList?> getFirstSharedList() async {
-    var foo = await _firestore
-        .collection("shared_lists")
-        .doc(_auth.currentUser!.uid)
-        .get();
-    List<dynamic> ids = foo["lists"];
-    if (ids.isNotEmpty) {
-      return await getSharedListById(ids[0]);
-    }
-    return null;
   }
 
   List<dynamic> _getLists(DocumentSnapshot<Map<String, dynamic>> document) {

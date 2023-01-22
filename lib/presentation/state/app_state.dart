@@ -33,6 +33,12 @@ class AppState extends InheritedWidget {
     });
   }
 
+  Stream<SharedList?> get currentListStream => _listController.stream;
+
+  SharedList? get currentList => _currentList;
+
+  Stream<List<SharedList>> get userLists => _listsService.getSharedLists();
+
   void setList(SharedList? newList) {
     _currentList = newList;
     _listController.sink.add(newList);
@@ -53,9 +59,10 @@ class AppState extends InheritedWidget {
     await _listsService.updateList(_currentList!);
   }
 
-  Stream<SharedList?> get currentListStream => _listController.stream;
-
-  SharedList? get currentList => _currentList;
+  Future<void> removeCurrentList() async {
+    await _listsService.removeSharedList(_currentList!.id);
+    setList(await _listsService.getFirstSharedList());
+  }
 
   void increaseProductAdded() async {
     _productsAdded++;
@@ -65,11 +72,6 @@ class AppState extends InheritedWidget {
         inAppReview.requestReview();
       }
     }
-  }
-
-  Future<void> removeCurrentList() async {
-    await _listsService.removeSharedList(_currentList!.id);
-    setList(await _listsService.getFirstSharedList());
   }
 
   void increaseQuantity(Product product) async {
@@ -91,8 +93,6 @@ class AppState extends InheritedWidget {
   void updateProduct(Product product) {
     _listsService.updateProduct(currentList!.id, product);
   }
-
-  Stream<List<SharedList>> get userLists => _listsService.getSharedLists();
 
   @override
   bool updateShouldNotify(covariant AppState oldWidget) => true;
