@@ -44,7 +44,7 @@ class ShareListMenuItem {
         title: "app_name".i18n(),
         description: "app_share_deep_link_description".i18n(),
         imageUrl: Uri.parse(
-            "https://famlist-app.firebaseapp.com/img/logotype.4ab23ff2.jpg"),
+            "https://famlist-app.firebaseapp.com/img/app_icon.84091cf1.png"),
       ),
     );
     final shortLink =
