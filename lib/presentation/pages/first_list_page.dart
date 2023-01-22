@@ -9,8 +9,7 @@ class WelcomeListPage extends StatelessWidget {
   WelcomeListPage({Key? key}) : super(key: key);
 
   void _createList(AppState state, NavigatorState navigator) async {
-    var list = await state.addList(_titleTextField.value.text);
-    state.setList(list);
+    await state.addList(_titleTextField.value.text);
     navigator.popUntil(ModalRoute.withName(Navigator.defaultRouteName));
   }
 

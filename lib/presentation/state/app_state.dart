@@ -43,8 +43,8 @@ class AppState extends InheritedWidget {
     }
   }
 
-  Future<SharedList> addList(String title) async {
-    return _listsService.addList(title);
+  Future<void> addList(String title) async {
+    setList(await _listsService.addList(title));
   }
 
   Future<void> updateListTitle(String newTitle) async {
