@@ -36,5 +36,7 @@
   "delete_list_dialog_title": "Liste löschen",
   "delete_list_dialog_body": "Möchten Sie %s löschen?",
   "edit_list": "Liste bearbeiten",
-  "save": "Speichern"
+  "save": "Speichern",
+  "download_famlist": "Laden Sie Famlist jetzt herunter, um Ihren Kühlschrank auf dem neuesten Stand zu halten!",
+  "share_app": "Teilen Famlist"
 }

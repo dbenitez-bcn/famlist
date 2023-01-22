@@ -36,5 +36,7 @@
   "delete_list_dialog_title": "Retirar lista",
   "delete_list_dialog_body": "Você deseja excluir %s ?",
   "edit_list": "Editar lista",
-  "save": "Salve"
+  "save": "Salve",
+  "download_famlist": "Baixe agora o Famlist para manter sua geladeira atualizada!",
+  "share_app": "Compartilhar Famlist"
 }

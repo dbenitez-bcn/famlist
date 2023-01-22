@@ -36,5 +36,7 @@
   "delete_list_dialog_title": "Delete list",
   "delete_list_dialog_body": "Do you want to delete %s ?",
   "edit_list": "Edit list",
-  "save": "Save"
+  "save": "Save",
+  "download_famlist": "Download Famlist now to keep your fridge up to date!",
+  "share_app": "Share Famlist"
 }

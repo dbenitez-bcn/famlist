@@ -36,5 +36,7 @@
   "delete_list_dialog_title": "Elimina elenco",
   "delete_list_dialog_body": "Vuoi eliminare %s ?",
   "edit_list": "Modifica elenco",
-  "save": "Salva"
+  "save": "Salva",
+  "download_famlist": "Scarica subito Famlist per mantenere aggiornato il tuo frigorifero!",
+  "share_app": "Condividere Famlist"
 }
