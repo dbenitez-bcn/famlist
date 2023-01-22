@@ -1,8 +1,8 @@
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
+import 'package:famlist/presentation/wigdet/listTiles/new_list_tile.dart';
+import 'package:famlist/presentation/wigdet/listTiles/support_developer.dart';
 import 'package:famlist/presentation/wigdet/shared_list_tile.dart';
-import 'package:famlist/services/ads_service.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -35,32 +35,8 @@ class FamlistDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Divider(),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.add_circle_outline,
-              color: Colors.grey,
-            ),
-            title: Text("add_list".i18n()),
-            onTap: () => Navigator.pushNamed(context, '/newList'),
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.play_circle_outline,
-              color: Colors.grey,
-            ),
-            title: Text("support_developer".i18n()),
-            onTap: () {
-              AdsService.of(context).supportDeveloper(() {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("support_developer_message".i18n()),
-                  ),
-                );
-              });
-              FirebaseAnalytics.instance.logEvent(name: "developer_supported");
-            },
-          ),
+          const NewListTile(),
+          const SupportDeveloperTile(),
         ],
       ),
     );
