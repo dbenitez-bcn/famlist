@@ -16,11 +16,13 @@ class AppState extends InheritedWidget {
   final ListsService _listsService;
   SharedList? _currentList;
   int _productsAdded = 0;
+  final List<SharedList> initialUserLists;
 
   AppState(
     this._sharedPreferences,
     this._listsService,
-    this._currentList, {
+    this._currentList,
+    this.initialUserLists, {
     Key? key,
     required Widget child,
   }) : super(key: key, child: child) {

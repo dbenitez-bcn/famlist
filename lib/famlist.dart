@@ -52,6 +52,7 @@ class FamlistApp extends StatelessWidget {
                 snapshot.data!.preferences,
                 snapshot.data!.listsService,
                 snapshot.data!.sharedList,
+                snapshot.data!.userLists,
                 child: AdsService(
                   child: MaterialApp(
                     title: APP_NAME,
@@ -108,16 +109,21 @@ class FamlistApp extends StatelessWidget {
         if (list != null) {
           await listsService.addSharedList(list.id);
           await preferences.setString(LAST_LIST_ID_KEY, list.id);
-          return AppInitializationDto(preferences, listsService, list);
+          return AppInitializationDto(preferences, listsService, list,
+              await listsService.getUsersLists());
         }
       }
     }
 
     String? listId = preferences.getString(LAST_LIST_ID_KEY);
     if (listId != null) {
-      return AppInitializationDto(preferences, listsService,
-          await listsService.getSharedListById(listId));
+      return AppInitializationDto(
+          preferences,
+          listsService,
+          await listsService.getSharedListById(listId),
+          await listsService.getUsersLists());
     }
-    return AppInitializationDto(preferences, listsService, null);
+    return AppInitializationDto(
+        preferences, listsService, null, []);
   }
 }

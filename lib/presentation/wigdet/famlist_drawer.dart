@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/presentation/wigdet/shared_list_tile.dart';
 import 'package:famlist/services/ads_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -32,7 +30,7 @@ class FamlistDrawer extends StatelessWidget {
               ],
             ),
           ),
-          ListLists(),
+          const ListLists(),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Divider(),
@@ -70,16 +68,12 @@ class FamlistDrawer extends StatelessWidget {
 }
 
 class ListLists extends StatelessWidget {
-  ListLists({Key? key}) : super(key: key);
-  final Stream<DocumentSnapshot<Map<String, dynamic>>> _listsStream =
-      FirebaseFirestore.instance
-          .collection("shared_lists")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .snapshots();
+  const ListLists({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<SharedList>>(
+      initialData: AppState.of(context).initialUserLists,
       stream: AppState.of(context).userLists,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {

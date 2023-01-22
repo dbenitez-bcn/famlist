@@ -53,6 +53,18 @@ class ListsService {
         .asyncMap(_mapLists);
   }
 
+  Future<List<SharedList>> getUsersLists() async {
+    var collection = await _firestore
+        .collection("shared_lists")
+        .doc(_auth.currentUser!.uid)
+        .get();
+    if (collection.exists && collection.data() != null) {
+      return await _mapLists(collection.data()!["lists"]);
+    } else {
+      return [];
+    }
+  }
+
   Future<SharedList?> getFirstSharedList() async {
     var foo = await _firestore
         .collection("shared_lists")

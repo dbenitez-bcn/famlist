@@ -6,6 +6,8 @@ class AppInitializationDto {
   final SharedPreferences preferences;
   final ListsService listsService;
   final SharedList? sharedList;
+  final List<SharedList> userLists;
 
-  AppInitializationDto(this.preferences, this.listsService, this.sharedList);
+  AppInitializationDto(
+      this.preferences, this.listsService, this.sharedList, this.userLists);
 }
