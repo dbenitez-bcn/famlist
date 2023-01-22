@@ -45,6 +45,7 @@ class ListsService {
   }
 
   Future<void> removeSharedList(String listId) async {
+    _analytics.logEvent(name: "list_removed"); // TODO: Move to app state
     await _firestore
         .collection("shared_lists")
         .doc(_auth.currentUser!.uid)
