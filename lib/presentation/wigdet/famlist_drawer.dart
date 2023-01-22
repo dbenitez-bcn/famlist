@@ -1,6 +1,7 @@
 import 'package:famlist/list.dart';
 import 'package:famlist/presentation/state/app_state.dart';
 import 'package:famlist/presentation/wigdet/listTiles/new_list_tile.dart';
+import 'package:famlist/presentation/wigdet/listTiles/share_app_tile.dart';
 import 'package:famlist/presentation/wigdet/listTiles/support_developer.dart';
 import 'package:famlist/presentation/wigdet/shared_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class FamlistDrawer extends StatelessWidget {
           ),
           const NewListTile(),
           const SupportDeveloperTile(),
+          const ShareAppTile(),
         ],
       ),
     );
