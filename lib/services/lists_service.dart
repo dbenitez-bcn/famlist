@@ -100,11 +100,15 @@ class ListsService {
     return null;
   }
 
-  addProduct(String listId, String title, String? description) {
-    _analytics.logEvent(name: "product_added"); // TODO: Move to app state
-    _firestore.collection("lists/$listId/products").add({
+  addProduct(String listId, String title, String? description) async {
+    await _analytics.logEvent(name: "product_added"); // TODO: Move to app state
+    await saveProduct(listId, title, description, 1);
+  }
+
+  saveProduct(String listId, String title, String? description, int quantity) async  {
+    await _firestore.collection("lists/$listId/products").add({
       "title": title,
-      "quantity": 1,
+      "quantity": quantity,
       "description": description,
       "created_at": FieldValue.serverTimestamp(),
     });

@@ -52,8 +52,15 @@ class ProductsListView extends StatelessWidget {
             AppState.of(context).removeProduct(products[index].id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content:
-                      Text("product_deletion".i18n([products[index].title]))),
+                content: Text(
+                  "product_deletion".i18n([products[index].title]),
+                ),
+              action: SnackBarAction(
+                label: 'undo'.i18n(),
+                onPressed: () {
+                  AppState.of(context).saveProduct(products[index]);
+                },
+              ),),
             );
           },
           background: Container(

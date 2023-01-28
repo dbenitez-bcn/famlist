@@ -84,8 +84,17 @@ class AppState extends InheritedWidget {
     return _listsService.getProducts(listId);
   }
 
-  void addProduct(String title, String description) {
-    _listsService.addProduct(currentList!.id, title, description);
+  void addProduct(String title, String description) async {
+    await _listsService.addProduct(currentList!.id, title, description);
+  }
+
+  void saveProduct(Product product) async {
+    await _listsService.saveProduct(
+      currentList!.id,
+      product.title,
+      product.description,
+      product.quantity,
+    );
   }
 
   void removeProduct(String productId) {
