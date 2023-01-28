@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -17,6 +18,7 @@ class ShareAppTile extends StatelessWidget {
       onTap: () async {
         var link = await _generateShareLink(context);
       await Share.share("${"download_famlist".i18n()} $link");
+      FirebaseAnalytics.instance.logEvent(name: "app_shared");
       },
     );
   }
