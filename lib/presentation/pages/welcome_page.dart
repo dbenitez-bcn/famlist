@@ -13,11 +13,12 @@ class WelcomePage extends StatelessWidget {
           children: [
             Text(
               "welcome_title".i18n(),
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             Text(
               "welcome_subtitle".i18n(),
-              // style: Theme.of(context).textTheme.headline5,
+              textAlign: TextAlign.center,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
