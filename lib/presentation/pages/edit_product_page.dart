@@ -103,7 +103,7 @@ class EditProductPage extends StatelessWidget {
                   onPressed: value.text.isNotEmpty
                       ? () => _updateProduct(context)
                       : null,
-                  child: Text("update_label".i18n()),
+                  child: Text("save".i18n()),
                 );
               },
             ),
